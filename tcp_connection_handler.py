@@ -341,10 +341,9 @@ class tcp_connection_handler:
         # At this point all connection handlers and polling engines have been set up.
         # We can now start the connection
         if hasattr(interface, 'Connect'):
-            if interface.Protocol == 'TCP':
-                Wait(0, lambda i=interface: i.Connect(0.5)) # Dont do this
-                #interface.Connect(0.1)  # Do this
-                # The update_connection_status method will maintain the connection from here on out.
+            Wait(0, lambda i=interface: i.Connect(0.5)) # Dont do this
+            #interface.Connect(0.1)  # Do this
+            # The update_connection_status method will maintain the connection from here on out.
 
     def _add_logical_connection_handling_client(self, interface):
         print('_add_logical_connection_handling_client')
@@ -931,24 +930,22 @@ class tcp_connection_handler:
 
             print('Currently Disconnected. Should try to reconnect')
             if hasattr(interface, 'Connect'):
-                if interface.Protocol == 'TCP':
-                    print('self._connectWaits.get(interface, None)=', self._connectWaits.get(interface, None))
-                    if self._connectWaits.get(interface, None) is None:
-                        print('Trying to re-connect to interface={}'.format(interface))
-                        wt = Wait(self._connectionRetryFreqs[interface],
-                                  lambda interface=interface: print(
-                                      '_connectWaits {} result={}'.format(interface, interface.Connect())))
-                        print('reconnect wt=', wt)
-                        self._connectWaits[interface] = wt
-                    else:
-                        print('interface.Connect in progress. Waiting for timeout or successful connection')
+                print('self._connectWaits.get(interface, None)=', self._connectWaits.get(interface, None))
+                if self._connectWaits.get(interface, None) is None:
+                    print('Trying to re-connect to interface={}'.format(interface))
+                    wt = Wait(self._connectionRetryFreqs[interface],
+                              lambda interface=interface: print(
+                                  '_connectWaits {} result={}'.format(interface, interface.Connect())))
+                    print('reconnect wt=', wt)
+                    self._connectWaits[interface] = wt
+                else:
+                    print('interface.Connect in progress. Waiting for timeout or successful connection')
 
             # If a TCP interface is logically disconnect, also do physical disconnect.
             if state == 'Disconnected':
                 if 'Logical' in kind or 'Module' in kind:
                     if isinstance(interface, extronlib.interface.EthernetClientInterface):
-                        if interface.Protocol == 'TCP':
-                            interface.Disconnect()  # do physical disconnect
+                        interface.Disconnect()  # do physical disconnect
 
         # Start/Stop the polling timer if it exists
         if interface in self._timers:
