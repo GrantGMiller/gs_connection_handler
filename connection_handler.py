@@ -5,8 +5,19 @@ import time
 
 from collections import defaultdict
 
-__version__ = '0.0.0'
+__version__ = '0.0.1'
 '''
+TODO
+
+Test GSM disconnected - make sure SubscribeStatus('ConnectionStatus'.. triggers as well as @event(dev, 'Disconnected)
+
+
+v0.0.1 - 2018-04-17
+ServerEx - fix requirement for order of @event/HandleConnection
+Change class name to ConnectionHandler
+change module name to connection_handler
+Fixed bug where disconnecting multiple undead clients had the wrong timing
+
 v0.0.0 - started with UCH v1.0.7
 Strip down to only include TCP connections (Server/Client/SSH/GSM)
 '''
@@ -17,31 +28,36 @@ if not debug:
     pass
 else:
     oldPrint = print
+
+
     def NewPrint(*a, **k):
         oldPrint(time.time(), *a, **k)
         time.sleep(0.002)
+
+
     print = NewPrint
 
 
 def HandleConnection(interface, *args, **kwargs):
-    if tcp_connection_handler._defaultCH is None:
+    if ConnectionHandler.GetDefaultCH() is None:
         filename = kwargs.pop('log_filename', 'connection_handler.log')
-        tcp_connection_handler._defaultCH = tcp_connection_handler(filename=filename)
-    tcp_connection_handler._defaultCH.maintain(interface, *args, **kwargs)
-    return tcp_connection_handler._defaultCH
+        ConnectionHandler.SetDefaultCH(ConnectionHandler(filename=filename))
+    ConnectionHandler.GetDefaultCH().maintain(interface, *args, **kwargs)
+
+    return ConnectionHandler.GetDefaultCH()
 
 
 def BreakConnection(interface):
-    if tcp_connection_handler._defaultCH is None:
-        tcp_connection_handler._defaultCH = tcp_connection_handler()
-    tcp_connection_handler._defaultCH.block(interface)
+    if ConnectionHandler.DefaultCH is None:
+        ConnectionHandler.DefaultCH = ConnectionHandler()
+    ConnectionHandler.DefaultCH.block(interface)
 
 
 def IsConnected(interface):
-    if tcp_connection_handler._defaultCH is None:
+    if ConnectionHandler.GetDefaultCH() is None:
         return False
     else:
-        status = tcp_connection_handler._defaultCH.get_connection_status(interface)
+        status = ConnectionHandler.GetDefaultCH().get_connection_status(interface)
         if status == 'Connected':
             return True
         else:
@@ -50,14 +66,28 @@ def IsConnected(interface):
 
 def GetAllDefaultHandlerInterfaces():
     # Returns a list of all the interfaces being handled by the default handler
-    if tcp_connection_handler._defaultCH is not None:
-        return tcp_connection_handler._defaultCH._interfaces.copy()
+    if ConnectionHandler.GetDefaultCH() is not None:
+        return ConnectionHandler.GetDefaultCH().GetAllInterfaces()
     else:
         return []
 
 
-class tcp_connection_handler:
+class ConnectionHandler:
+    '''
+    This class handles TCP connections. Including Server/Client/GSM's/SSH
+    '''
     _defaultCH = None
+
+    @classmethod
+    def GetDefaultCH(cls):
+        return cls._defaultCH
+
+    @classmethod
+    def SetDefaultCH(cls, obj):
+        cls._defaultCH = obj
+
+    def GetAllInterfaces(self):
+        return self._interfaces.copy()
 
     def __init__(self, filename='connection_handler.log'):
         '''
@@ -207,17 +237,17 @@ class tcp_connection_handler:
                 self._maintain_serverEx_TCP(interface)
             else:
                 raise Exception(
-                    'This tcp_connection_handler class does not support EthernetServerInterfaceEx with Protocol="UDP".\r\nConsider using EthernetServerInterface with Protocol="UDP" (non-EX) without this handler.')
+                    'This ConnectionHandler class does not support EthernetServerInterfaceEx with Protocol="UDP".\r\nConsider using EthernetServerInterface with Protocol="UDP" (non-EX) without this handler.')
 
         elif isinstance(interface, extronlib.interface.EthernetServerInterface):
 
             if interface.Protocol in {'TCP', 'SSH'}:
                 raise Exception(
-                    'This tcp_connection_handler class does not support EthernetServerInterface with Protocol="TCP".\r\nConsider using EthernetServerInterfaceEx with Protocol="TCP".')
+                    'This ConnectionHandler class does not support EthernetServerInterface with Protocol="TCP".\r\nConsider using EthernetServerInterfaceEx with Protocol="TCP".')
 
             elif interface.Protocol == 'UDP':
                 raise Exception(
-                    'This tcp_connection_handler class does not support EthernetServerInterface with Protocol="UDP".\r\nConsider using EthernetServerInterfaceEx.')
+                    'This ConnectionHandler class does not support EthernetServerInterface with Protocol="UDP".\r\nConsider using EthernetServerInterfaceEx.')
 
     def _maintain_serverEx_TCP(self, parent):
         print('_maintain_serverEx_TCP parent.Connected=', parent.Connected)
@@ -233,9 +263,17 @@ class tcp_connection_handler:
         print('_maintain_serverEx_TCP self._user_connected_handlers=', self._user_connected_handlers)
         print('_maintain_serverEx_TCP self._user_disconnected_handlers=', self._user_disconnected_handlers)
 
-        # Create new handlers
-        parent.Connected = self._get_serverEx_connection_callback(parent)
-        parent.Disconnected = self._get_serverEx_connection_callback(parent)
+        if self._user_connected_handlers[parent] is None or \
+                self._user_connected_handlers[parent].__module__ is not __name__:
+            parent.Connected = self._get_serverEx_connection_callback(parent)
+
+        if self._user_disconnected_handlers[parent] is None or \
+                self._user_disconnected_handlers[parent].__module__ is not __name__:
+            parent.Disconnected = self._get_serverEx_connection_callback(parent)
+
+        if parent in self._timers:
+            print('Stopping old timer')
+            self._timers[parent].Stop()
 
         print('Creating new undead Timer')
         new_timer = Timer(
@@ -247,6 +285,20 @@ class tcp_connection_handler:
         self._timers[parent] = new_timer
 
         self._server_start_listening(parent)
+
+        '''If HandleConnection(server) is called before 
+            @event(s, ['Connected', 'Disconnected]) 
+            or before @event(s, 'ReceiveData')
+            Then the CH event are overridden by the @events
+            
+            We need to check periodically to make sure the handlers are from this CH
+            and not from another module.
+        '''
+        if None in {self._user_connected_handlers[parent], self._user_disconnected_handlers[parent]}:
+            @Wait(1)
+            def RecheckUserConnectionHandlers(p=parent):
+                print('RecheckUserConnectionHandlers')
+                self._maintain_serverEx_TCP(p)
 
     def _server_start_listening(self, parent):
         '''
@@ -341,8 +393,8 @@ class tcp_connection_handler:
         # At this point all connection handlers and polling engines have been set up.
         # We can now start the connection
         if hasattr(interface, 'Connect'):
-            Wait(0, lambda i=interface: i.Connect(0.5)) # Dont do this
-            #interface.Connect(0.1)  # Do this
+            Wait(0, lambda i=interface: i.Connect(0.5))  # Dont do this
+            # interface.Connect(0.1)  # Do this
             # The update_connection_status method will maintain the connection from here on out.
 
     def _add_logical_connection_handling_client(self, interface):
@@ -643,6 +695,8 @@ class tcp_connection_handler:
 
                 self._update_connection_status_serial_or_ethernetclient(intf, state,
                                                                         'ControlScript4')  # Also calls user connection callback
+        else:
+            controlscript_connection_callback = None
 
         print('end self._user_connected_handlers[interface]=',
               self._user_connected_handlers.get(interface, 'KeyError'))
@@ -658,14 +712,6 @@ class tcp_connection_handler:
             interface.Disconnected = None
 
             interface.Disconnect()
-
-        elif isinstance(interface, extronlib.interface.EthernetServerInterface):
-            interface.Connected = None
-            interface.Disconnected = None
-
-            interface.Disconnect()
-
-            interface.StopListen()
 
         elif isinstance(interface, extronlib.interface.EthernetServerInterfaceEx):
             interface.Connected = None
@@ -687,6 +733,24 @@ class tcp_connection_handler:
         return self._connection_status.get(interface, None)
 
     def _get_serverEx_connection_callback(self, parent):
+        '''
+        Stores the current user callback
+        Creates a new callback that adds CH functionality and then calls the user callback.
+        :param parent:
+        :return:
+        '''
+
+        if parent.Connected is None or \
+            parent.Connected.__module__ is not __name__:
+            # The current parent.Connected is from a diff module and probaly the user callback
+            # Store it for later
+            self._user_connected_handlers[parent] = parent.Connected
+
+        if parent.Disconnected is None or \
+            parent.Disconnected.__module__ is not __name__:
+            # The current parent.Disconnected is from a diff module and probaly the user callback
+            # Store it for later
+            self._user_disconnected_handlers[parent] = parent.Disconnected
 
         def controlscript_connection_callback(client, state):
             print('serverEx controlscript_connection_callback(client={}, state={})'.format(client, state))
@@ -724,8 +788,7 @@ class tcp_connection_handler:
             if parent not in self._server_client_rx_timestamps:
                 self._server_client_rx_timestamps[parent] = {}
 
-            self._server_client_rx_timestamps[parent][
-                client] = time.monotonic()  # init the value to the time the connection started
+            self._server_client_rx_timestamps[parent][client] = time.monotonic()  # init the value to the time the connection started
             self._check_rx_handler_serverEx(client)
 
             if callable(self._connected_callback):
@@ -758,11 +821,11 @@ class tcp_connection_handler:
             # we need to override the rx handler with a new handler that will also add the timestamp
             def new_rx(client, data):
                 time_now = time.monotonic()
-                print('new_rx\ntime_now={}\nclient={}'.format(time_now, client))
+                print('new_rx time_now={}, client={}, data={}'.format(time_now, client, data))
                 self._server_client_rx_timestamps[parent][client] = time_now
                 self._update_serverEx_timer(parent)
                 if callable(old_rx):
-                    old_rx(client, data)
+                        old_rx(client, data)
 
             parent.ReceiveData = new_rx
             self._rx_handlers[parent] = new_rx
@@ -774,29 +837,33 @@ class tcp_connection_handler:
         :param parent:
         :return:
         '''
+        print('_update_serverEx_timer parent=', parent)
+        print(' len(parent.Clients)=',  len(parent.Clients))
         if len(parent.Clients) > 0:
+            print('self._server_client_rx_timestamps[parent]=', self._server_client_rx_timestamps[parent])
             oldest_timestamp = None
-            for client in parent.Clients:
-                if client not in self._server_client_rx_timestamps[parent]:
-                    self._server_client_rx_timestamps[parent][client] = time.monotonic()
-
-                client_timestamp = self._server_client_rx_timestamps[parent][client]
+            for client, client_timestamp in self._server_client_rx_timestamps[parent].copy().items():
 
                 if (oldest_timestamp is None) or client_timestamp < oldest_timestamp:
                     oldest_timestamp = client_timestamp
 
-                print('client={}\nclient_timestamp={}\noldest_timestamp={}'.format(client, client_timestamp,
-                                                                                   oldest_timestamp))
+                print('client={}, client_timestamp={}, oldest_timestamp={}, nowtime={}'.format(
+                    client,
+                    client_timestamp,
+                    oldest_timestamp,
+                    time.monotonic(),
+                ))
 
             # We now have the oldest timestamp, thus we know when we should check the client again
-            seconds_until_timer_check = self._connection_timeouts[parent] - (time.monotonic() - oldest_timestamp)
 
-            if len(parent.Clients) > 0 and seconds_until_timer_check >= 0:
-                self._timers[parent].ChangeTime(seconds_until_timer_check)
-                print('parent.Clients=', parent.Clients)
-                self._timers[parent].Start()
-            else:
-                self._timers[parent].Stop()
+            if oldest_timestamp is not None:
+                seconds_until_timer_check = self._connection_timeouts[parent] - (time.monotonic() - oldest_timestamp)
+                if seconds_until_timer_check > 0:
+                    print('seconds_until_timer_check=', seconds_until_timer_check)
+                    print('len(parent.Clients)=', len(parent.Clients))
+                    self._timers[parent].ChangeTime(seconds_until_timer_check)
+                    self._timers[parent].Start()
+
 
             # Lets say the parent timeout is 5 minutes.
             # If the oldest connected client has not communicated for 4min 55sec, then seconds_until_timer_check = 5 seconds
@@ -804,22 +871,37 @@ class tcp_connection_handler:
             # Assuming the oldest client still has no communication, it will be disconnected at the 5 minute mark exactly
 
         else:  # there are no clients connected
+            print('870 Timer.Stop()')
             self._timers[parent].Stop()
 
     def _disconnect_undead_clients(self, parent):
+        print('_disconnect_undead_clients')
         for client in parent.Clients:
-            client_timestamp = self._server_client_rx_timestamps[parent][client]
+            client_timestamp = self._server_client_rx_timestamps[parent].get(client, None)
+            if client_timestamp is None:
+                continue
+
             if time.monotonic() - client_timestamp > self._connection_timeouts[parent]:
                 if client in parent.Clients:
-                    if debug: client.Send(time.asctime() + ' ')
+                    if debug:
+                        client.Send(time.asctime() + ' ')
+
+                    print('Disconnected client=', client)
+
                     client.Send('Disconnecting due to inactivity for {} seconds.\r\nBye.\r\n'.format(
-                        self._connection_timeouts[parent]))
+                        self._connection_timeouts[parent])
+                    )
+
                     client.Disconnect()
+
                 self._remove_client_data(client)
+
+        self._update_serverEx_timer(parent)
 
     def _remove_client_data(self, client):
         # remove dead sockets to prevent memory leak
-        self._server_client_rx_timestamps.pop(client, None)
+        print('_remove_client_data client=', client)
+        self._server_client_rx_timestamps[client.Parent].pop(client, None)
 
     def _log_connection_to_file(self, interface, state, kind):
         print('_log_connection_to_file(interface={}, state={}, kind={})'.format(interface, state, kind))
@@ -1068,3 +1150,6 @@ class Timer:
         if self._running:
             print('Expired calling Start() _func={}, self={}'.format(self._func, self))
             self.Start()
+
+    def __del__(self):
+        self.Stop()

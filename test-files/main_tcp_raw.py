@@ -1,4 +1,4 @@
-from tcp_connection_handler import HandleConnection
+from connection_handler import HandleConnection
 from extronlib import event
 from extronlib.interface import EthernetClientInterface
 
