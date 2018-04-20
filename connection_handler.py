@@ -71,7 +71,6 @@ def GetAllDefaultHandlerInterfaces():
     else:
         return []
 
-
 class ConnectionHandler:
     '''
     This class handles TCP connections. Including Server/Client/GSM's/SSH
@@ -1153,3 +1152,6 @@ class Timer:
 
     def __del__(self):
         self.Stop()
+
+
+__all__ = ('HandleConnection', 'IsConnected')
