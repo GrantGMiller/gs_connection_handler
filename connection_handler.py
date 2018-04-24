@@ -11,7 +11,7 @@ TODO
 
 Test GSM disconnected - make sure SubscribeStatus('ConnectionStatus'.. triggers as well as @event(dev, 'Disconnected)
 
-v0.0.2 - 2018-04-24
+v0.0.3 - 2018-04-24
 When GSM is gracefully disconnected from server-side, module.OnDisconnected() was not called. This has been fixed.
 
 v0.0.1 - 2018-04-17
@@ -528,7 +528,7 @@ class ConnectionHandler:
                     # Only send when connected
                     print(
                         'calling user_send_method {}(*args={}, **kwargs={})='.format(current_send_method, args, kwargs))
-                    current_send_method(*args, **kwargs)
+                    Wait(0, lambda a=args, k=kwargs: current_send_method(*a, **k))
 
             timer = self._timers.get(interface, None)
             if timer: timer.Start()
@@ -695,15 +695,16 @@ class ConnectionHandler:
                 self._destroyConnectionWait(intf)
 
                 # If we receive a graceful disconnect from the server, also disconnect module
-                try:
-                    currentModuleState = intf.ReadStatus('ConnectionStatus')
-                    if currentModuleState != state:
-                        if state == 'Connected':
-                            intf.OnConnected()
-                        elif state == 'Disconnected':
-                            intf.OnDisconnected()
-                except:
-                    pass
+                # try:
+                #     currentModuleState = intf.ReadStatus('ConnectionStatus')
+                #     if currentModuleState != state:
+                #         if state == 'Connected':
+                #             intf.OnConnected()
+                #             pass
+                #         elif state == 'Disconnected':
+                #             intf.OnDisconnected()
+                # except:
+                #     pass
 
                 self._update_connection_status_serial_or_ethernetclient(intf, state,
                                                                         'ControlScript4')  # Also calls user connection callback
