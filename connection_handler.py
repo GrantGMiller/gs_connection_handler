@@ -5,12 +5,14 @@ import time
 
 from collections import defaultdict
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 '''
 TODO
 
 Test GSM disconnected - make sure SubscribeStatus('ConnectionStatus'.. triggers as well as @event(dev, 'Disconnected)
 
+v0.0.2 - 2018-04-24
+When GSM is gracefully disconnected from server-side, module.OnDisconnected() was not called. This has been fixed.
 
 v0.0.1 - 2018-04-17
 ServerEx - fix requirement for order of @event/HandleConnection
@@ -691,6 +693,17 @@ class ConnectionHandler:
                     'extronlib.interface controlscript_connection_callback(intf={}, state={}) self._connectWaits={}'.format(
                         intf, state, self._connectWaits))
                 self._destroyConnectionWait(intf)
+
+                # If we receive a graceful disconnect from the server, also disconnect module
+                try:
+                    currentModuleState = intf.ReadStatus('ConnectionStatus')
+                    if currentModuleState != state:
+                        if state == 'Connected':
+                            intf.OnConnected()
+                        elif state == 'Disconnected':
+                            intf.OnDisconnected()
+                except:
+                    pass
 
                 self._update_connection_status_serial_or_ethernetclient(intf, state,
                                                                         'ControlScript4')  # Also calls user connection callback
