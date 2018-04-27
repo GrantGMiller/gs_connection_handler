@@ -5,11 +5,12 @@ import time
 
 from collections import defaultdict
 
-__version__ = '0.0.2'
+__version__ = '0.0.4'
 '''
-TODO
+VERSION HISTORY ***************
 
-Test GSM disconnected - make sure SubscribeStatus('ConnectionStatus'.. triggers as well as @event(dev, 'Disconnected)
+v0.0.4 - 2018-04-27
+Bug Fixed. GSM not re-connecting. When GSM is logically disconnected, connection_callback would destroy reconnectWait before it would fire
 
 v0.0.3 - 2018-04-24
 When GSM is gracefully disconnected from server-side, module.OnDisconnected() was not called. This has been fixed.
@@ -31,11 +32,9 @@ if not debug:
 else:
     oldPrint = print
 
-
     def NewPrint(*a, **k):
         oldPrint(time.time(), *a, **k)
         time.sleep(0.002)
-
 
     print = NewPrint
 
@@ -394,8 +393,7 @@ class ConnectionHandler:
         # At this point all connection handlers and polling engines have been set up.
         # We can now start the connection
         if hasattr(interface, 'Connect'):
-            Wait(0, lambda i=interface: i.Connect(0.5))  # Dont do this
-            # interface.Connect(0.1)  # Do this
+            Wait(0, lambda i=interface: print('397 i.Connect res=', i.Connect(0.5)))
             # The update_connection_status method will maintain the connection from here on out.
 
     def _add_logical_connection_handling_client(self, interface):
@@ -613,8 +611,9 @@ class ConnectionHandler:
     def _destroyConnectionWait(self, interface):
         print('_destroyConnectionWait(interface={})'.format(interface))
         wt = self._connectWaits.pop(interface, None)  # remove the wait object
-        print('wt=', wt)
+        print('613 wt=', wt)
         if wt is not None:
+            print('615 wt.Cancel() wt=', wt)
             wt.Cancel()
 
     def _get_controlscript_connection_callback(self, interface):
@@ -692,7 +691,9 @@ class ConnectionHandler:
                 print(
                     'extronlib.interface controlscript_connection_callback(intf={}, state={}) self._connectWaits={}'.format(
                         intf, state, self._connectWaits))
-                self._destroyConnectionWait(intf)
+
+                if state == 'Connected':
+                    self._destroyConnectionWait(intf)
 
                 # If we receive a graceful disconnect from the server, also disconnect module
                 # try:
@@ -932,6 +933,7 @@ class ConnectionHandler:
         # Write new status to a file
         with File(self._filename, mode='at') as file:
             write_str = '{}\n    {}:{}\n'.format(time.asctime(), 'type', type(interface))
+            write_str += '    {}:{}\n'.format('id', id(interface))
 
             for att in [
                 'IPAddress',
@@ -1025,13 +1027,18 @@ class ConnectionHandler:
 
             print('Currently Disconnected. Should try to reconnect')
             if hasattr(interface, 'Connect'):
-                print('self._connectWaits.get(interface, None)=', self._connectWaits.get(interface, None))
+                print('1026 self._connectWaits.get(interface, None)=', self._connectWaits.get(interface, None))
                 if self._connectWaits.get(interface, None) is None:
                     print('Trying to re-connect to interface={}'.format(interface))
-                    wt = Wait(self._connectionRetryFreqs[interface],
-                              lambda interface=interface: print(
-                                  '_connectWaits {} result={}'.format(interface, interface.Connect())))
-                    print('reconnect wt=', wt)
+
+                    def ReconnectWaitFunc(interface=interface):
+                        print('1035 ReconnectWaitFunc interface=', interface)
+                        self._destroyConnectionWait(interface)
+                        print('1032 _connectWaits {} result={}'.format(interface, interface.Connect()))
+
+                    wt = Wait(self._connectionRetryFreqs[interface], ReconnectWaitFunc)
+
+                    print('reconnect wt=', wt, ', interface=', interface)
                     self._connectWaits[interface] = wt
                 else:
                     print('interface.Connect in progress. Waiting for timeout or successful connection')
