@@ -524,7 +524,7 @@ class ConnectionHandler:
                 if self._send_counters.get(interface, 0) > self._disconnectLimits.get(interface, 0):
                     # We have not received any responses after X sends, go disconnected
                     print('logical disconnect limit =', self._disconnectLimits[interface])
-                    self._update_connection_status_serial_or_ethernetclient(interface, 'Disconnected', 'Logical')
+                    self._update_connection_status_serial_or_ethernetclient(interface, 'Disconnected', 'Logical4')
                 else:
                     # Only send when connected
                     print(
@@ -552,14 +552,14 @@ class ConnectionHandler:
 
                 # Check if we have exceeded the disconnect limit
                 if self._send_counters[interface] > self._disconnectLimits[interface]:
-                    self._update_connection_status_serial_or_ethernetclient(interface, 'Disconnected', 'Logical')
+                    self._update_connection_status_serial_or_ethernetclient(interface, 'Disconnected', 'Logical2')
 
                 try:
                     res = current_send_and_wait_method(*args, **kwargs)
                 except (BrokenPipeError, TypeError) as e:
                     ProgramLog('new_send_and_wait(*args={}, **kwargs={})'.format(args, kwargs), 'warning')
                     ProgramLog(str(e), 'warning')
-                    self._update_connection_status_serial_or_ethernetclient(interface, 'Disconnected', 'ControlScript3')
+                    interface.Disconnect()
                     res = None
 
                 if res not in [None, b'']:
