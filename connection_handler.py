@@ -556,7 +556,7 @@ class ConnectionHandler:
 
                 try:
                     res = current_send_and_wait_method(*args, **kwargs)
-                except (BrokenPipeError, TypeError) as e:
+                except (BrokenPipeError, TypeError, AttributeError) as e:
                     ProgramLog('new_send_and_wait(*args={}, **kwargs={})'.format(args, kwargs), 'warning')
                     ProgramLog(str(e), 'warning')
                     interface.Disconnect()
