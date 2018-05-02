@@ -5,9 +5,12 @@ import time
 
 from collections import defaultdict
 
-__version__ = '0.0.4'
+__version__ = '0.0.5'
 '''
 VERSION HISTORY ***************
+
+v0.0.5 - 2018-05-02
+Bug Fixed. SendAndWait can throw TypeError "missing positional arg "msg"". Added handling and ProgramLog for this.
 
 v0.0.4 - 2018-04-27
 Bug Fixed. GSM not re-connecting. When GSM is logically disconnected, connection_callback would destroy reconnectWait before it would fire
@@ -553,8 +556,10 @@ class ConnectionHandler:
 
                 try:
                     res = current_send_and_wait_method(*args, **kwargs)
-                except BrokenPipeError as e:
+                except (BrokenPipeError, TypeError) as e:
+                    ProgramLog('new_send_and_wait(*args={}, **kwargs={})'.format(args, kwargs), 'warning')
                     ProgramLog(str(e), 'warning')
+                    self._update_connection_status_serial_or_ethernetclient(interface, 'Disconnected', 'ControlScript3')
                     res = None
 
                 if res not in [None, b'']:
