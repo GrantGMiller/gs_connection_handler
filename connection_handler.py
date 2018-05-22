@@ -1043,7 +1043,7 @@ class ConnectionHandler:
 
                     wt = Wait(self._connectionRetryFreqs[interface], ReconnectWaitFunc)
 
-                    print('reconnect wt=', wt, ', interface=', interface)
+                    print('1046 reconnect wt=', wt, ', interface=', interface)
                     self._connectWaits[interface] = wt
                 else:
                     print('interface.Connect in progress. Waiting for timeout or successful connection')
