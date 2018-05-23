@@ -35,9 +35,11 @@ if not debug:
 else:
     oldPrint = print
 
+
     def NewPrint(*a, **k):
         oldPrint(time.time(), *a, **k)
         time.sleep(0.002)
+
 
     print = NewPrint
 
@@ -50,13 +52,6 @@ def HandleConnection(interface, *args, **kwargs):
 
     return ConnectionHandler.GetDefaultCH()
 
-
-def BreakConnection(interface):
-    if ConnectionHandler.DefaultCH is None:
-        ConnectionHandler.DefaultCH = ConnectionHandler()
-    ConnectionHandler.DefaultCH.block(interface)
-
-
 def IsConnected(interface):
     if ConnectionHandler.GetDefaultCH() is None:
         return False
@@ -68,12 +63,13 @@ def IsConnected(interface):
             return False
 
 
-def GetAllDefaultHandlerInterfaces():
+def GetInterfaces():
     # Returns a list of all the interfaces being handled by the default handler
     if ConnectionHandler.GetDefaultCH() is not None:
         return ConnectionHandler.GetDefaultCH().GetAllInterfaces()
     else:
         return []
+
 
 class ConnectionHandler:
     '''
@@ -760,13 +756,13 @@ class ConnectionHandler:
         '''
 
         if parent.Connected is None or \
-            parent.Connected.__module__ is not __name__:
+                parent.Connected.__module__ is not __name__:
             # The current parent.Connected is from a diff module and probaly the user callback
             # Store it for later
             self._user_connected_handlers[parent] = parent.Connected
 
         if parent.Disconnected is None or \
-            parent.Disconnected.__module__ is not __name__:
+                parent.Disconnected.__module__ is not __name__:
             # The current parent.Disconnected is from a diff module and probaly the user callback
             # Store it for later
             self._user_disconnected_handlers[parent] = parent.Disconnected
@@ -807,7 +803,8 @@ class ConnectionHandler:
             if parent not in self._server_client_rx_timestamps:
                 self._server_client_rx_timestamps[parent] = {}
 
-            self._server_client_rx_timestamps[parent][client] = time.monotonic()  # init the value to the time the connection started
+            self._server_client_rx_timestamps[parent][
+                client] = time.monotonic()  # init the value to the time the connection started
             self._check_rx_handler_serverEx(client)
 
             if callable(self._connected_callback):
@@ -844,7 +841,7 @@ class ConnectionHandler:
                 self._server_client_rx_timestamps[parent][client] = time_now
                 self._update_serverEx_timer(parent)
                 if callable(old_rx):
-                        old_rx(client, data)
+                    old_rx(client, data)
 
             parent.ReceiveData = new_rx
             self._rx_handlers[parent] = new_rx
@@ -857,7 +854,7 @@ class ConnectionHandler:
         :return:
         '''
         print('_update_serverEx_timer parent=', parent)
-        print(' len(parent.Clients)=',  len(parent.Clients))
+        print(' len(parent.Clients)=', len(parent.Clients))
         if len(parent.Clients) > 0:
             print('self._server_client_rx_timestamps[parent]=', self._server_client_rx_timestamps[parent])
             oldest_timestamp = None
@@ -882,7 +879,6 @@ class ConnectionHandler:
                     print('len(parent.Clients)=', len(parent.Clients))
                     self._timers[parent].ChangeTime(seconds_until_timer_check)
                     self._timers[parent].Start()
-
 
             # Lets say the parent timeout is 5 minutes.
             # If the oldest connected client has not communicated for 4min 55sec, then seconds_until_timer_check = 5 seconds
@@ -1125,18 +1121,6 @@ class ConnectionHandler:
         print('UCH.Disconnected.setter callback={}'.format(callback))
         self._disconnected_callback = callback
 
-
-'''
-The below classes are from the extronlib_pro module. I decided to include them below
-    so that users can have the best possible experience with the UCH class.
-'''
-
-
-# Start Wait Code **************************************************************
-
-
-# End Wait Code ******************************************************************
-# Loop Code ***********************************************************
 
 class Timer:
     def __init__(self, t, func):
