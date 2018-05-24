@@ -52,6 +52,7 @@ def HandleConnection(interface, *args, **kwargs):
 
     return ConnectionHandler.GetDefaultCH()
 
+
 def IsConnected(interface):
     if ConnectionHandler.GetDefaultCH() is None:
         return False
@@ -720,28 +721,6 @@ class ConnectionHandler:
 
         return controlscript_connection_callback
 
-    def block(self, interface):
-        # Use this to stop this interface from communicating
-        if isinstance(interface, extronlib.interface.EthernetClientInterface):
-            interface.Connected = None
-            interface.Disconnected = None
-
-            interface.Disconnect()
-
-        elif isinstance(interface, extronlib.interface.EthernetServerInterfaceEx):
-            interface.Connected = None
-            interface.Disconnected = None
-
-            interface.StopListen()
-
-            for client in interface.Clients:
-                client.Disconnect()
-
-        try:
-            self._interfaces.remove(interface)
-        except ValueError as e:
-            print('752 Exception:', e)
-
     def get_connection_status(self, interface):
         # return 'Connected' or 'Disconnected'
         # Returns None if this interface is not being handled by this UCH
@@ -1164,4 +1143,4 @@ class Timer:
         self.Stop()
 
 
-__all__ = ('HandleConnection', 'IsConnected')
+__all__ = ('HandleConnection', 'IsConnected', 'GetInterfaces')
