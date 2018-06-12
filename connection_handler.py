@@ -1113,7 +1113,10 @@ class Timer:
     def Start(self):
         print('Timer.Start() _func={}, eWait.Time={}, self={}'.format(self._func, self._eWait.Time, self))
         self._running = True
-        self._eWait.Restart()
+
+        #self._eWait.Restart()
+        self._eWait.Cancel()
+        self._eWait = Wait(self._t, self._Expired) # getting a "set to this timer already' error using .Restart() so trying this instead
 
     def ChangeTime(self, newTime):
         print('Timer.ChangeTime(newTime={}) _func={}, self={}'.format(newTime, self._func, self))
