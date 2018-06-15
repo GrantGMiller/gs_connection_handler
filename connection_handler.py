@@ -28,6 +28,8 @@ v0.0.0 - started with UCH v1.0.7
 Strip down to only include TCP connections (Server/Client/SSH/GSM)
 '''
 
+USE_PRECISE_TIMING = False
+
 debug = False
 if not debug:
     print = lambda *a, **k: None
@@ -829,44 +831,61 @@ class ConnectionHandler:
         '''
         This method will check all the time stamps and set the timer so that it will check again when the oldest client
             is near the X minute timeout mark.
+
+        Bug: If more than 230 packets are receved before the timeout it can cause a "cant start new thread error"
+        Changing this method to just check every X seconds instead of adjusting everytime a packet is received.
+        This will cause the disconnection to be imprecise but wont crash the system like it does now.
+
         :param parent:
         :return:
         '''
         print('_update_serverEx_timer parent=', parent)
         print(' len(parent.Clients)=', len(parent.Clients))
-        if len(parent.Clients) > 0:
-            print('self._server_client_rx_timestamps[parent]=', self._server_client_rx_timestamps[parent])
-            oldest_timestamp = None
-            for client, client_timestamp in self._server_client_rx_timestamps[parent].copy().items():
 
-                if (oldest_timestamp is None) or client_timestamp < oldest_timestamp:
-                    oldest_timestamp = client_timestamp
 
-                print('client={}, client_timestamp={}, oldest_timestamp={}, nowtime={}'.format(
-                    client,
-                    client_timestamp,
-                    oldest_timestamp,
-                    time.monotonic(),
-                ))
+        if USE_PRECISE_TIMING is False:
+            timer = self._timers[parent]
+            if len(parent.Clients) > 0:
+                if not timer.Running:
+                    timer.Start()
+            else:
+                if timer.Running:
+                    timer.Stop()
+        else:
+            if len(parent.Clients) > 0:
+                print('self._server_client_rx_timestamps[parent]=', self._server_client_rx_timestamps[parent])
+                oldest_timestamp = None
+                for client, client_timestamp in self._server_client_rx_timestamps[parent].copy().items():
 
-            # We now have the oldest timestamp, thus we know when we should check the client again
+                    if (oldest_timestamp is None) or client_timestamp < oldest_timestamp:
+                        oldest_timestamp = client_timestamp
 
-            if oldest_timestamp is not None:
-                seconds_until_timer_check = self._connection_timeouts[parent] - (time.monotonic() - oldest_timestamp)
-                if seconds_until_timer_check > 0:
-                    print('seconds_until_timer_check=', seconds_until_timer_check)
-                    print('len(parent.Clients)=', len(parent.Clients))
-                    self._timers[parent].ChangeTime(seconds_until_timer_check)
-                    self._timers[parent].Start()
+                    print('client={}, client_timestamp={}, oldest_timestamp={}, nowtime={}'.format(
+                        client,
+                        client_timestamp,
+                        oldest_timestamp,
+                        time.monotonic(),
+                    ))
 
-            # Lets say the parent timeout is 5 minutes.
-            # If the oldest connected client has not communicated for 4min 55sec, then seconds_until_timer_check = 5 seconds
-            # The timer will check the clients again in 5 seconds.
-            # Assuming the oldest client still has no communication, it will be disconnected at the 5 minute mark exactly
+                # We now have the oldest timestamp, thus we know when we should check the client again
 
-        else:  # there are no clients connected
-            print('870 Timer.Stop()')
-            self._timers[parent].Stop()
+                # Disabling for now.
+                if oldest_timestamp is not None:
+                    seconds_until_timer_check = self._connection_timeouts[parent] - (time.monotonic() - oldest_timestamp)
+                    if seconds_until_timer_check > 0:
+                        print('seconds_until_timer_check=', seconds_until_timer_check)
+                        print('len(parent.Clients)=', len(parent.Clients))
+                        self._timers[parent].ChangeTime(seconds_until_timer_check)
+                        self._timers[parent].Start()
+
+                # Lets say the parent timeout is 5 minutes.
+                # If the oldest connected client has not communicated for 4min 55sec, then seconds_until_timer_check = 5 seconds
+                # The timer will check the clients again in 5 seconds.
+                # Assuming the oldest client still has no communication, it will be disconnected at the 5 minute mark exactly
+
+            else:  # there are no clients connected
+                print('870 Timer.Stop()')
+                self._timers[parent].Stop()
 
     def _disconnect_undead_clients(self, parent):
         print('_disconnect_undead_clients')
@@ -882,8 +901,10 @@ class ConnectionHandler:
 
                     print('Disconnected client=', client)
 
-                    client.Send('Disconnecting due to inactivity for {} seconds.\r\nBye.\r\n'.format(
-                        self._connection_timeouts[parent])
+                    client.Send('Disconnecting due to inactivity for {}{} seconds.\r\nBye.\r\n'.format(
+                        self._connection_timeouts[parent],
+                        '' if USE_PRECISE_TIMING else '+'
+                    )
                     )
 
                     client.Disconnect()
@@ -1121,9 +1142,10 @@ class Timer:
     def ChangeTime(self, newTime):
         print('Timer.ChangeTime(newTime={}) _func={}, self={}'.format(newTime, self._func, self))
         newTime = 0 if newTime < 0 else newTime
-        self._eWait.Cancel()
+        #self._eWait.Cancel()
         self._t = newTime
-        self._eWait = Wait(self._t, self._Expired)
+        #self._eWait = Wait(self._t, self._Expired)
+        self._eWait.Change(newTime)
         print('Timer._eWait.Time=', self._eWait.Time)
 
     def Stop(self, *args, **kwargs):
@@ -1141,6 +1163,10 @@ class Timer:
         if self._running:
             print('Expired calling Start() _func={}, self={}'.format(self._func, self))
             self.Start()
+
+    @property
+    def Running(self):
+        return self._running
 
     def __del__(self):
         self.Stop()
