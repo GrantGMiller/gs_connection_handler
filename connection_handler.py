@@ -5,9 +5,12 @@ import time
 
 from collections import defaultdict
 
-__version__ = '0.0.5'
+__version__ = '0.0.6'
 '''
 VERSION HISTORY ***************
+
+v0.0.6 - 2018-06-20
+Bug Fixed. SerialInterface has not att 'Connected'
 
 v0.0.5 - 2018-05-02
 Bug Fixed. SendAndWait can throw TypeError "missing positional arg "msg"". Added handling and ProgramLog for this.
@@ -477,7 +480,10 @@ class ConnectionHandler:
 
             else:
                 # The user's subscribe callback is None. Meaning the user didnt call .SubscribeStatus('ConnectionStatus')
-                interface.SubscribeStatus('ConnectionStatus', None, self._get_module_connection_callback(interface))
+                try:
+                    interface.SubscribeStatus('ConnectionStatus', None, self._get_module_connection_callback(interface))
+                except Exception as e:
+                    print(e)
 
     def _check_send_methods(self, interface):
         '''
@@ -556,9 +562,11 @@ class ConnectionHandler:
                 try:
                     res = current_send_and_wait_method(*args, **kwargs)
                 except (BrokenPipeError, TypeError, AttributeError) as e:
+                    ProgramLog('current_send_and_wait_method={}'.format(current_send_and_wait_method), 'warning')
                     ProgramLog('new_send_and_wait(*args={}, **kwargs={})'.format(args, kwargs), 'warning')
                     ProgramLog(str(e), 'warning')
-                    interface.Disconnect()
+                    if hasattr(interface, 'Disconnect'):
+                        interface.Disconnect()
                     res = None
 
                 if res not in [None, b'']:
@@ -647,7 +655,10 @@ class ConnectionHandler:
         # Get handler
 
         # save user Connected handler
-        callback = getattr(interface, 'Connected')  # SerialInterface does not have 'Connected' attribute
+        if hasattr(interface, 'Connected'):
+            callback = getattr(interface, 'Connected')  # SerialInterface does not have 'Connected' attribute
+        else:
+            callback = None
 
         if callback != self._connected_handlers[interface]:
             if callback is not None:
@@ -664,7 +675,10 @@ class ConnectionHandler:
                 self._user_connected_handlers[interface] = None
 
         # save user Disconnected handler
-        callback = getattr(interface, 'Disconnected')  # SerialInterface does not have 'Disconnected' attribute
+        if hasattr(interface, 'Disconnected'):
+            callback = getattr(interface, 'Disconnected')  # SerialInterface does not have 'Disconnected' attribute
+        else:
+            callback = None
 
         if callback is not None:
             print('disconnectCallback=', callback)
