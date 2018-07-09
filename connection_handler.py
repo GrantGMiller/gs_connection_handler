@@ -631,7 +631,7 @@ class ConnectionHandler:
     def _get_controlscript_connection_callback(self, interface):
 
         if isinstance(interface, extronlib.interface.EthernetClientInterface):
-            print('_get_controlscript_connection_callback(interface={})'.format(interface))
+            print('_get_controlscript_connection_callback(interface=', interface)
             print('interface.Connected=', interface.Connected)
             print('interface.Disconnected=', interface.Disconnected)
             print('self._user_connected_handlers[interface]=', self._user_connected_handlers.get(interface, 'KeyError'))
@@ -1084,7 +1084,7 @@ class ConnectionHandler:
                     # Stop the timer and wait for a 'Connected' Event
 
     def __str__(self):
-        s = '''{}\n\n***** Interfaces being handled *****\n\n'''.format(self)
+        s = '''\n\n***** Interfaces being handled *****\n\n'''
 
         for interface in self._interfaces:
             s += self._interface_to_str(interface)
