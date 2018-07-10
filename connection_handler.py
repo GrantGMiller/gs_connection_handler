@@ -565,6 +565,10 @@ class ConnectionHandler:
                     ProgramLog('current_send_and_wait_method={}'.format(current_send_and_wait_method), 'warning')
                     ProgramLog('new_send_and_wait(*args={}, **kwargs={})'.format(args, kwargs), 'warning')
                     ProgramLog(str(e), 'warning')
+
+                    if debug is True:
+                        raise e
+
                     if hasattr(interface, 'Disconnect'):
                         interface.Disconnect()
                     res = None
