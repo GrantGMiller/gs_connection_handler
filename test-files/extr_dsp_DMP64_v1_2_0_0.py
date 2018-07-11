@@ -91,7 +91,7 @@ class DeviceClass:
     def __MatchPassword(self, match, tag):
         self.PasswdPromptCount += 1
         if self.PasswdPromptCount > 1:
-            self.Error(['Log in failed. Please supply proper Admin password'])
+            self.Error(['Log in failed. Please supply proper Admin password. ' + str(self)])
             self.Authenticated = 'None'
         else:
             self.SetPassword()
