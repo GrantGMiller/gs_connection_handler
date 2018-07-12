@@ -789,7 +789,7 @@ class DeviceClass:
         if hasattr(self, method) and callable(getattr(self, method)):
             getattr(self, method)(value, qualifier)
         else:
-            print(command, 'does not support Set.')
+            print(command, 'does not support Set. command={}, value={}, qualifier={}'.format(command, value, qualifier))
     # Send Update Commands
 
     def Update(self, command, qualifier=None):
@@ -797,7 +797,7 @@ class DeviceClass:
         if hasattr(self, method) and callable(getattr(self, method)):
             getattr(self, method)(None, qualifier)
         else:
-            print(command, 'does not support Update.')
+            print(command, 'does not support Update. command={}, value={}, qualifier={}'.format(command, value, qualifier))
 
     # This method is to tie an specific command with a parameter to a call back method
     # when its value is updated. It sets how often the command will be query, if the command
