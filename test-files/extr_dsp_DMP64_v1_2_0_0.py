@@ -826,7 +826,7 @@ class DeviceClass:
             Method['callback'] = callback
             Method['qualifier'] = qualifier
         else:
-            print(command, 'does not exist in the module')
+            print(command, 'does not exist in the module', self)
 
     # This method is to check the command with new status have a callback method then trigger the callback
     def NewStatus(self, command, value, qualifier):
