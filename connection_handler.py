@@ -10,7 +10,7 @@ __version__ = '0.0.6'
 VERSION HISTORY ***************
 
 v0.0.6 - 2018-06-20
-Bug Fixed. SerialInterface has not att 'Connected'
+Bug Fixed. SerialInterface has no attribute 'Connected'
 
 v0.0.5 - 2018-05-02
 Bug Fixed. SendAndWait can throw TypeError "missing positional arg "msg"". Added handling and ProgramLog for this.
