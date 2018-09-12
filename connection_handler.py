@@ -5,9 +5,12 @@ import time
 
 from collections import defaultdict
 
-__version__ = '0.0.6'
+__version__ = '0.0.7'
 '''
 VERSION HISTORY ***************
+
+v0.0.7 - 2018-08-29
+Changed try/except for SendAndWait to catch all exception as it can throw many types of exceptions.
 
 v0.0.6 - 2018-06-20
 Bug Fixed. SerialInterface has no attribute 'Connected'
@@ -561,7 +564,7 @@ class ConnectionHandler:
 
                 try:
                     res = current_send_and_wait_method(*args, **kwargs)
-                except (BrokenPipeError, TypeError, AttributeError) as e:
+                except Exception as e:
                     ProgramLog('current_send_and_wait_method={}'.format(current_send_and_wait_method), 'warning')
                     ProgramLog('new_send_and_wait(*args={}, **kwargs={})'.format(args, kwargs), 'warning')
                     ProgramLog(str(e), 'warning')
