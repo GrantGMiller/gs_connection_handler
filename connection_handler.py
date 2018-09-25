@@ -596,7 +596,12 @@ class ConnectionHandler:
         if interface not in self._rx_handlers:
             self._rx_handlers[interface] = None
 
-        current_rx = interface.ReceiveData
+        try:
+            current_rx = interface.ReceiveData
+        except Exception as e:
+            print('Exception 602:', e)
+            current_rx = None # Needed for IPCP FW 3.0 compatibility
+
         if current_rx == None or (current_rx != self._rx_handlers[interface] and current_rx.__module__ is not __name__):
             # The Rx handler got overwritten somehow, make a new Rx and assign it to the interface and save it in self._rx_handlers
             def new_rx(*args, **kwargs):
@@ -863,7 +868,6 @@ class ConnectionHandler:
         print('_update_serverEx_timer parent=', parent)
         print(' len(parent.Clients)=', len(parent.Clients))
 
-
         if USE_PRECISE_TIMING is False:
             timer = self._timers[parent]
             if len(parent.Clients) > 0:
@@ -892,7 +896,8 @@ class ConnectionHandler:
 
                 # Disabling for now.
                 if oldest_timestamp is not None:
-                    seconds_until_timer_check = self._connection_timeouts[parent] - (time.monotonic() - oldest_timestamp)
+                    seconds_until_timer_check = self._connection_timeouts[parent] - (
+                                time.monotonic() - oldest_timestamp)
                     if seconds_until_timer_check > 0:
                         print('seconds_until_timer_check=', seconds_until_timer_check)
                         print('len(parent.Clients)=', len(parent.Clients))
@@ -1156,16 +1161,17 @@ class Timer:
         print('Timer.Start() _func={}, eWait.Time={}, self={}'.format(self._func, self._eWait.Time, self))
         self._running = True
 
-        #self._eWait.Restart()
+        # self._eWait.Restart()
         self._eWait.Cancel()
-        self._eWait = Wait(self._t, self._Expired) # getting a "set to this timer already' error using .Restart() so trying this instead
+        self._eWait = Wait(self._t,
+                           self._Expired)  # getting a "set to this timer already' error using .Restart() so trying this instead
 
     def ChangeTime(self, newTime):
         print('Timer.ChangeTime(newTime={}) _func={}, self={}'.format(newTime, self._func, self))
         newTime = 0 if newTime < 0 else newTime
-        #self._eWait.Cancel()
+        # self._eWait.Cancel()
         self._t = newTime
-        #self._eWait = Wait(self._t, self._Expired)
+        # self._eWait = Wait(self._t, self._Expired)
         self._eWait.Change(newTime)
         print('Timer._eWait.Time=', self._eWait.Time)
 
