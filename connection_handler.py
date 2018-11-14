@@ -942,7 +942,7 @@ class ConnectionHandler:
     def _remove_client_data(self, client):
         # remove dead sockets to prevent memory leak
         print('_remove_client_data client=', client)
-        self._server_client_rx_timestamps[client.Parent].pop(client, None)
+        self._server_client_rx_timestamps[client.Parnet].pop(client, None)
 
     def _log_connection_to_file(self, interface, state, kind):
         print('_log_connection_to_file(interface={}, state={}, kind={})'.format(interface, state, kind))
