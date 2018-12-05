@@ -34,7 +34,7 @@ v0.0.0 - started with UCH v1.0.7
 Strip down to only include TCP connections (Server/Client/SSH/GSM)
 '''
 
-USE_PRECISE_TIMING = False
+USE_PRECISE_TIMING = False # disconnect ServerEx clients at exactly the serverTimeout time, set false to disconnect after more than serverTimeout, added because Wait.Restart was getting "cant start new thread" error
 
 debug = False
 if not debug:
