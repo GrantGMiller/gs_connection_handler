@@ -10,6 +10,7 @@ HandleConnection(device, keepAliveQueryCommand='q')
 def DeviceConnectionEvent(interface, state):
     print('DeviceConnectionEvent(interface={}, state={})'.format(interface, state))
 
+
 @event(device, 'ReceiveData')
 def DeviceRxData(interface, data):
     print('Rx:', data)
