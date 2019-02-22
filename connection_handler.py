@@ -210,6 +210,8 @@ class ConnectionHandler:
         :param disconnectLimit: int - how many missed queries before a 'Disconnected' event is triggered
         :param serverTimeout: int - After this many seconds, a client who has not sent any data to the server will be disconnected.
         :param connectionRetryFreq: int - how many seconds after a Disconnect event to try to do Connect
+        :param logPhysicalConnection: bool
+        :param logLogicalConnection: bool
         :return:
         '''
         print(
