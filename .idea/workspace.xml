@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0eecc1d2-9074-42c8-9eb8-8852b998d3d7" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/../gs-modules/extr_sp_Quantum_Ultra610_v1_0_3_0.py" />
-      <change beforePath="$PROJECT_DIR$/test-files/main_tcp_gsm.py" afterPath="$PROJECT_DIR$/test-files/main_tcp_gsm.py" />
-      <change beforePath="$PROJECT_DIR$/test-files/main_tcp_raw.py" afterPath="$PROJECT_DIR$/test-files/main_tcp_raw.py" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,11 +18,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.6963485">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="connection_handler.py" pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/connection_handler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="22340">
-                  <caret line="1117" column="0" lean-forward="false" selection-start-line="1117" selection-start-column="0" selection-end-line="1117" selection-end-column="0" />
+                <state relative-caret-position="535">
+                  <caret line="200" column="17" selection-start-line="200" selection-start-column="17" selection-end-line="200" selection-end-column="17" />
                   <folding>
                     <element signature="e#0#16#0" expanded="true" />
                   </folding>
@@ -32,11 +30,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="main_tcp_gsm.py" pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test-files/main_tcp_gsm.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="680">
-                  <caret line="34" column="103" lean-forward="true" selection-start-line="34" selection-start-column="103" selection-end-line="34" selection-end-column="103" />
+                <state relative-caret-position="600">
+                  <caret line="34" column="103" selection-start-line="34" selection-start-column="103" selection-end-line="34" selection-end-column="103" />
                   <folding>
                     <element signature="e#0#56#0" expanded="true" />
                   </folding>
@@ -44,11 +42,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="extr_dsp_DMP64_v1_2_0_0.py" pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/../gs-modules/extr_dsp_DMP64_v1_2_0_0.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="700">
-                  <caret line="37" column="23" lean-forward="false" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="23" />
+                  <caret line="37" column="23" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="23" />
                   <folding>
                     <element signature="e#0#72#0" expanded="true" />
                   </folding>
@@ -56,11 +54,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="main_tcp_raw.py" pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test-files/main_tcp_raw.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="100">
-                  <caret line="5" column="50" lean-forward="false" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
+                <state relative-caret-position="60">
+                  <caret line="5" column="50" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
                   <folding>
                     <element signature="e#0#47#0" expanded="true" />
                   </folding>
@@ -68,11 +66,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="main_tcp_serverEx.py" pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test-files/main_tcp_serverEx.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="440">
-                  <caret line="22" column="14" lean-forward="true" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+                <state relative-caret-position="400">
+                  <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
                   <folding>
                     <element signature="e#0#47#0" expanded="true" />
                   </folding>
@@ -80,41 +78,38 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="connection_handler.log" pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test-files/connection_handler.log">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-16691">
-                  <caret line="21" column="3" lean-forward="true" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
-                  <folding />
+                <state relative-caret-position="420">
+                  <caret line="21" column="3" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="server_flood.py" pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/../extronlib-clone/test_files/server_flood.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="320">
-                  <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-                  <folding />
+                  <caret line="16" selection-start-line="16" selection-end-line="16" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="server_flood.py" pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test-files/server_flood.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="360">
-                  <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-                  <folding />
+                  <caret line="18" selection-start-line="18" selection-end-line="18" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="main_tcp_server.py" pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test-files/main_tcp_server.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="360">
-                  <caret line="18" column="42" lean-forward="true" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+                <state relative-caret-position="320">
+                  <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
                   <folding>
                     <element signature="e#0#47#0" expanded="true" />
                   </folding>
@@ -122,11 +117,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="extr_dsp_DMP_128_Plus_Series_v1_4_3_0.py" pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/../gs-modules/extr_dsp_DMP_128_Plus_Series_v1_4_3_0.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="53700">
-                  <caret line="2687" column="18" lean-forward="false" selection-start-line="2687" selection-start-column="18" selection-end-line="2687" selection-end-column="18" />
+                  <caret line="2687" column="18" selection-start-line="2687" selection-start-column="18" selection-end-line="2687" selection-end-column="18" />
                   <folding>
                     <element signature="e#0#72#0" expanded="true" />
                   </folding>
@@ -138,41 +133,34 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="make_singlehtml.py" pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/documentation/make_singlehtml.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="220">
-                  <caret line="11" column="18" lean-forward="false" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-                  <folding />
+                  <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.rst" pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/documentation/index.rst">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3400">
-                  <caret line="170" column="51" lean-forward="false" selection-start-line="170" selection-start-column="51" selection-end-line="170" selection-end-column="51" />
-                  <folding />
-                </state>
-              </provider>
+              <provider selected="true" editor-type-id="restructured-text-editor" />
             </entry>
           </file>
-          <file leaf-file-name="test.py" pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/test-files/test.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="540">
-                  <caret line="27" column="15" lean-forward="false" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
-                  <folding />
+                  <caret line="27" column="15" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="extr_sm_SMD202_v1_2_7_0.py" pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/../gs-modules/extr_sm_SMD202_v1_2_7_0.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="14680">
-                  <caret line="734" column="0" lean-forward="false" selection-start-line="734" selection-start-column="0" selection-end-line="734" selection-end-column="0" />
+                <state relative-caret-position="14600">
+                  <caret line="734" selection-start-line="734" selection-end-line="734" />
                   <folding>
                     <element signature="e#0#132#0" expanded="true" />
                   </folding>
@@ -253,24 +241,14 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="315" />
-    <option name="y" value="-13" />
+    <option name="x" value="1912" />
+    <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1096" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -290,7 +268,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -318,6 +295,7 @@
   </component>
   <component name="RunManager" selected="Python.server_flood (1)">
     <configuration name="main_tcp_gsm" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tcp-connection-handler" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -328,14 +306,17 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="tcp-connection-handler" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test-files/main_tcp_gsm.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <configuration name="main_tcp_serverEx" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tcp-connection-handler" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -346,14 +327,17 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="tcp-connection-handler" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test-files/main_tcp_serverEx.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <configuration name="make_singlehtml" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tcp-connection-handler" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -364,14 +348,17 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="tcp-connection-handler" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/documentation/make_singlehtml.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <configuration name="server_flood (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="connection-handler" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -382,14 +369,17 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="connection-handler" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test-files/server_flood.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <configuration name="server_flood" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="extronlib-clone" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -400,32 +390,31 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="extronlib-clone" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../extronlib-clone/test_files/server_flood.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
-    <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.main_tcp_gsm" />
-      <item index="1" class="java.lang.String" itemvalue="Python.main_tcp_serverEx" />
-      <item index="2" class="java.lang.String" itemvalue="Python.make_singlehtml" />
-      <item index="3" class="java.lang.String" itemvalue="Python.server_flood" />
-      <item index="4" class="java.lang.String" itemvalue="Python.server_flood (1)" />
+    <list>
+      <item itemvalue="Python.main_tcp_gsm" />
+      <item itemvalue="Python.main_tcp_serverEx" />
+      <item itemvalue="Python.make_singlehtml" />
+      <item itemvalue="Python.server_flood" />
+      <item itemvalue="Python.server_flood (1)" />
     </list>
     <recent_temporary>
-      <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.server_flood (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Python.server_flood" />
-        <item index="2" class="java.lang.String" itemvalue="Python.make_singlehtml" />
-        <item index="3" class="java.lang.String" itemvalue="Python.main_tcp_gsm" />
-        <item index="4" class="java.lang.String" itemvalue="Python.main_tcp_serverEx" />
+      <list>
+        <item itemvalue="Python.server_flood (1)" />
+        <item itemvalue="Python.server_flood" />
+        <item itemvalue="Python.make_singlehtml" />
+        <item itemvalue="Python.main_tcp_gsm" />
+        <item itemvalue="Python.main_tcp_serverEx" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -477,30 +466,27 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17755532" sideWeight="0.4082519" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2601457" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17755532" sideWeight="0.5917481" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1406744" sideWeight="0.50537634" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3298647" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" order="0" sideWeight="0.593361" side_tool="true" visible="true" weight="0.17755532" />
+      <window_info id="Favorites" order="1" sideWeight="0.50537634" side_tool="true" weight="0.1406744" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.406639" visible="true" weight="0.17755532" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.3298647" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2601457" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="confirmed in GS - GSM/Eth raw/ eth Server/Ex" />
@@ -510,333 +496,7 @@
     <MESSAGE value="added documentation" />
     <option name="LAST_COMMIT_MESSAGE" value="added documentation" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager />
-    <watches-manager />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../gs-modules/extr_sm_SMD202_v1_2_7_0.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14600">
-          <caret line="734" column="20" lean-forward="false" selection-start-line="734" selection-start-column="20" selection-end-line="734" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#132#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/extr_dsp_DMP64_v1_2_0_0.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1460">
-          <caret line="75" column="24" lean-forward="false" selection-start-line="75" selection-start-column="14" selection-end-line="75" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_gsm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="44" lean-forward="false" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../gs-modules/extr_dsp_DMP64_v1_2_0_0.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="700">
-          <caret line="37" column="23" lean-forward="false" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#72#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_raw.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="14" column="22" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="14" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_serverEx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="19" column="30" lean-forward="false" selection-start-line="19" selection-start-column="30" selection-end-line="22" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../extronlib-clone/extronlib/interface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8080">
-          <caret line="412" column="51" lean-forward="false" selection-start-line="412" selection-start-column="51" selection-end-line="412" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="27" lean-forward="false" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../gs-modules/extr_dsp_DMP_128_Plus_Series_v1_4_3_0.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54240">
-          <caret line="2714" column="0" lean-forward="true" selection-start-line="2714" selection-start-column="0" selection-end-line="2714" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#72#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/connection_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10400">
-          <caret line="525" column="21" lean-forward="false" selection-start-line="526" selection-start-column="22" selection-end-line="526" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="14" lean-forward="false" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../gs-modules/extr_sm_SMD202_v1_2_7_0.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14680">
-          <caret line="734" column="20" lean-forward="false" selection-start-line="734" selection-start-column="20" selection-end-line="734" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#132#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/extr_dsp_DMP64_v1_2_0_0.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1460">
-          <caret line="75" column="24" lean-forward="false" selection-start-line="75" selection-start-column="14" selection-end-line="75" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_raw.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="14" column="22" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="14" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_serverEx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="19" column="30" lean-forward="false" selection-start-line="19" selection-start-column="30" selection-end-line="22" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../extronlib-clone/extronlib/interface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8240">
-          <caret line="412" column="51" lean-forward="false" selection-start-line="412" selection-start-column="51" selection-end-line="412" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="27" lean-forward="false" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_gsm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="32" column="28" lean-forward="true" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/connection_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16700">
-          <caret line="840" column="59" lean-forward="false" selection-start-line="840" selection-start-column="59" selection-end-line="840" selection-end-column="59" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="14" lean-forward="false" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/extr_dsp_DMP64_v1_2_0_0.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1460">
-          <caret line="75" column="24" lean-forward="false" selection-start-line="75" selection-start-column="14" selection-end-line="75" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_raw.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="14" column="22" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="14" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_serverEx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="19" column="30" lean-forward="true" selection-start-line="19" selection-start-column="30" selection-end-line="22" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../extronlib-clone/extronlib/interface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8240">
-          <caret line="412" column="51" lean-forward="true" selection-start-line="412" selection-start-column="51" selection-end-line="412" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="27" lean-forward="true" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_gsm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="20" column="14" lean-forward="true" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/connection_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16700">
-          <caret line="840" column="59" lean-forward="false" selection-start-line="840" selection-start-column="59" selection-end-line="840" selection-end-column="59" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="14" lean-forward="false" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/extr_dsp_DMP64_v1_2_0_0.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1460">
-          <caret line="75" column="24" lean-forward="false" selection-start-line="75" selection-start-column="14" selection-end-line="75" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_gsm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_raw.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="14" column="22" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="14" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_serverEx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="15" column="37" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/connection_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../extronlib-clone/extronlib/system.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="377">
@@ -847,16 +507,36 @@
     <entry file="file://$PROJECT_DIR$/test-files/extr_dsp_DMP64_v1_2_0_0.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1460">
-          <caret line="75" column="24" lean-forward="false" selection-start-line="75" selection-start-column="14" selection-end-line="75" selection-end-column="24" />
+          <caret line="75" column="24" selection-start-line="75" selection-start-column="14" selection-end-line="75" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../extronlib-clone/extronlib/interface.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8240">
-          <caret line="412" column="0" lean-forward="false" selection-start-line="412" selection-start-column="0" selection-end-line="412" selection-end-column="0" />
+          <caret line="412" selection-start-line="412" selection-end-line="412" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/connection_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="200" column="17" selection-start-line="200" selection-start-column="17" selection-end-line="200" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_gsm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="34" column="103" selection-start-line="34" selection-start-column="103" selection-end-line="34" selection-end-column="103" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -864,9 +544,60 @@
     <entry file="file://$PROJECT_DIR$/../gs-modules/extr_dsp_DMP64_v1_2_0_0.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="700">
-          <caret line="37" column="23" lean-forward="false" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="23" />
+          <caret line="37" column="23" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="23" />
           <folding>
             <element signature="e#0#72#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_raw.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="50" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_serverEx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-files/connection_handler.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="21" column="3" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../extronlib-clone/test_files/server_flood.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-files/server_flood.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -874,7 +605,7 @@
     <entry file="file://$PROJECT_DIR$/../gs-modules/extr_dsp_DMP_128_Plus_Series_v1_4_3_0.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="53700">
-          <caret line="2687" column="18" lean-forward="false" selection-start-line="2687" selection-start-column="18" selection-end-line="2687" selection-end-column="18" />
+          <caret line="2687" column="18" selection-start-line="2687" selection-start-column="18" selection-end-line="2687" selection-end-column="18" />
           <folding>
             <element signature="e#0#72#0" expanded="true" />
           </folding>
@@ -884,35 +615,24 @@
     <entry file="file://$PROJECT_DIR$/documentation/make_singlehtml.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
-          <caret line="11" column="18" lean-forward="false" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-          <folding />
+          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/documentation/index.rst">
-      <provider selected="true" editor-type-id="text-editor">
+      <provider editor-type-id="text-editor">
         <state relative-caret-position="3400">
-          <caret line="170" column="51" lean-forward="false" selection-start-line="170" selection-start-column="51" selection-end-line="170" selection-end-column="51" />
-          <folding />
+          <caret line="170" column="51" selection-start-line="170" selection-start-column="51" selection-end-line="170" selection-end-column="51" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="restructured-text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/../gs-modules/extr_sm_SMD202_v1_2_7_0.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14680">
-          <caret line="734" column="0" lean-forward="false" selection-start-line="734" selection-start-column="0" selection-end-line="734" selection-end-column="0" />
+        <state relative-caret-position="14600">
+          <caret line="734" selection-start-line="734" selection-end-line="734" />
           <folding>
             <element signature="e#0#132#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/connection_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22340">
-          <caret line="1117" column="0" lean-forward="false" selection-start-line="1117" selection-start-column="0" selection-end-line="1117" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -920,72 +640,7 @@
     <entry file="file://$PROJECT_DIR$/test-files/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
-          <caret line="27" column="15" lean-forward="false" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../extronlib-clone/test_files/server_flood.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/server_flood.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_gsm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="34" column="103" lean-forward="true" selection-start-line="34" selection-start-column="103" selection-end-line="34" selection-end-column="103" />
-          <folding>
-            <element signature="e#0#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_raw.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="50" lean-forward="false" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" column="42" lean-forward="true" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_serverEx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="22" column="14" lean-forward="true" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/connection_handler.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-16691">
-          <caret line="21" column="3" lean-forward="true" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
-          <folding />
+          <caret line="27" column="15" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
         </state>
       </provider>
     </entry>
