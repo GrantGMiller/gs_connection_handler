@@ -37,7 +37,7 @@ v0.0.0 - started with UCH v1.0.7
 Strip down to only include TCP connections (Server/Client/SSH/GSM)
 '''
 
-USE_PRECISE_TIMING = False
+USE_PRECISE_TIMING = True
 # disconnect ServerEx clients at exactly the serverTimeout time,
 # set false to disconnect after more than serverTimeout,
 # added because Wait.Restart was getting "cant start new thread" error on IPCP FW 2.08
@@ -167,14 +167,14 @@ class ConnectionHandler:
             # interface: 'Listening' or 'Not Listening' or other
         }
 
-        self._server_client_rx_timestamps = {
-            # EthernetServerInterfaceEx1: {ClientObject1A: timestamp1,
-            # ClientObject1B: timestamp2,
-            # },
-            # EthernetServerInterfaceEx2: {ClientObject2A: timestamp3,
-            # ClientObject2B: timestamp4,
-            # },
-        }
+        self._server_client_rx_timestamps = defaultdict(dict)  # {
+        # EthernetServerInterfaceEx1: {ClientObject1A: timestamp1,
+        # ClientObject1B: timestamp2,
+        # },
+        # EthernetServerInterfaceEx2: {ClientObject2A: timestamp3,
+        # ClientObject2B: timestamp4,
+        # },
+        # }
 
         self._keepAliveQueryCommands = {
             # interface: 'string',
@@ -229,7 +229,7 @@ class ConnectionHandler:
         :return:
         '''
         print(
-            'maintain()\ninterface={}\nkeepAliveQueryCommand="{}"\nkeepAliveQueryQualifier={}\npollFreq={}\ndisconnectLimit={}\nserverTimeout={}\nconnectionRetryFreq={}\nlog_connection={}\nlogLogicalConnection={}\n\n'.format(
+            'maintain()\ninterface={}\nkeepAliveQueryCommand="{}"\nkeepAliveQueryQualifier={}\npollFreq={}\ndisconnectLimit={}\nserverTimeout={}\nconnectionRetryFreq={}\nlog_connection={}\nlogLogicalConnection={}\ntimedDisconnect={}\n\n'.format(
                 interface,
                 keepAliveQueryCommand,
                 keepAliveQueryQualifier,
@@ -239,6 +239,7 @@ class ConnectionHandler:
                 connectionRetryFreq,
                 logPhysicalConnection,
                 logLogicalConnection,
+                timedDisconnect,
             ))
         self._timedDisconnect[interface] = timedDisconnect
         self._timedDisconnectWait[interface] = Wait(
@@ -279,7 +280,7 @@ class ConnectionHandler:
                     'This ConnectionHandler class does not support EthernetServerInterface with Protocol="UDP".\r\nConsider using EthernetServerInterfaceEx.')
 
     def _maintain_serverEx_TCP(self, parent):
-        print('_maintain_serverEx_TCP parent.Connected=', parent.Connected)
+        print('283 _maintain_serverEx_TCP parent.Connected=', parent.Connected)
         print('_maintain_serverEx_TCP parent.Disconnected=', parent.Disconnected)
 
         # save old handlers
@@ -422,7 +423,8 @@ class ConnectionHandler:
         # At this point all connection handlers and polling engines have been set up.
         # We can now start the connection
         if hasattr(interface, 'Connect'):
-            Wait(0, lambda i=interface: print('397 i.Connect res=', i.Connect(0.5)))
+            # Wait(0, lambda i=interface: print('397 i.Connect res=', i.Connect(0.5))) # Dont do Wait(0) here, it causes race conditions
+            interface.Connect(0.5)  # use this GGM 2019-02-28
             # The update_connection_status method will maintain the connection from here on out.
 
     def _add_logical_connection_handling_client(self, interface):
@@ -545,6 +547,7 @@ class ConnectionHandler:
                 if currentState is 'Connected':
                     if self._timedDisconnect[interface] is None:
                         self._send_counters[interface] += 1
+                        print('548 self._send_counters[interface]=', self._send_counters[interface])
                 else:
                     # We dont need to increment the send counter if we know we are disconnected
                     pass
@@ -579,8 +582,9 @@ class ConnectionHandler:
                 self._check_rx_handler_serial_or_ethernetclient(interface)
                 self._check_connection_handlers(interface)
 
-                self._send_counters[interface] += 1
-                print('new_send_and_wait send_counter=', self._send_counters[interface])
+                if self._timedDisconnect[interface] is None:
+                    self._send_counters[interface] += 1
+                    print('new_send_and_wait send_counter=', self._send_counters[interface])
 
                 # Check if we have exceeded the disconnect limit
                 if self._timedDisconnect[interface] is None and \
@@ -607,8 +611,9 @@ class ConnectionHandler:
                     else:
                         self._send_counters[interface] = time.monotonic()
                         self._timedDisconnectWait[interface].Restart()
+                        print('613 restart', time.time())
 
-                print('600 res =', res, ', new_send_and_wait send_counter=', self._send_counters[interface])
+                    print('600 res =', res, ', new_send_and_wait send_counter=', self._send_counters[interface])
 
                 return res
 
@@ -643,6 +648,8 @@ class ConnectionHandler:
                 else:
                     self._send_counters[interface] = time.monotonic()  # holds the last timestamp of Rx
                     self._timedDisconnectWait[interface].Restart()
+                    print('613-2 restart', time.time())
+                print('647 self._send_counters[interface]=', self._send_counters[interface])
 
                 if isinstance(interface, extronlib.interface.EthernetClientInterface):
                     if not hasattr(interface, 'SubscribeStatus'):  # Rely on GSM's connection status
@@ -660,7 +667,7 @@ class ConnectionHandler:
     def _CheckTimedDisconnect(self, intf):
         print('650 _CheckTimedDisconnect(', intf)
         lastRxTime = self._send_counters[intf]
-        delta = lastRxTime - time.monotonic()
+        delta = time.monotonic() - lastRxTime
         print('653 delta=', delta)
         if delta > self._timedDisconnect[intf]:
             self._update_connection_status_serial_or_ethernetclient(intf, 'Disconnected', 'Timed Disconnect 650')
@@ -681,7 +688,7 @@ class ConnectionHandler:
     def _destroyConnectionWait(self, interface):
         print('_destroyConnectionWait(interface={})'.format(interface))
         wt = self._connectWaits.pop(interface, None)  # remove the wait object
-        print('613 wt=', wt)
+        print('690 wt=', wt)
         if wt is not None:
             print('615 wt.Cancel() wt=', wt)
             wt.Cancel()
@@ -753,7 +760,9 @@ class ConnectionHandler:
                     # The connection handler was prob overridden in main.py. Reassign it
                     self._user_disconnected_handlers[interface] = callback
 
-                    # If the user changes the userCallback, call the userCallback with the current state to make sure the user is notified of the current state
+                    # If the user changes the userCallback,
+                    # call the userCallback with the current state to make sure the
+                    # user is notified of the current state
                     if not IsConnected(interface):
                         print('648 Calling user disconnected handler', self._connection_status)
                         self._user_disconnected_handlers[interface](interface, 'Disconnected')
@@ -783,8 +792,10 @@ class ConnectionHandler:
                 # except:
                 #     pass
 
-                self._update_connection_status_serial_or_ethernetclient(intf, state,
-                                                                        'ControlScript4')  # Also calls user connection callback
+                self._update_connection_status_serial_or_ethernetclient(
+                    intf, state,
+                    'ControlScript4'
+                )  # Also calls user connection callback
         else:
             controlscript_connection_callback = None
 
@@ -821,15 +832,22 @@ class ConnectionHandler:
             self._user_disconnected_handlers[parent] = parent.Disconnected
 
         def controlscript_connection_callback(client, state):
-            print('serverEx controlscript_connection_callback(client={}, state={})'.format(client, state))
+            print('835 serverEx controlscript_connection_callback(client={}, state={})'.format(client, state))
             print('self._user_connected_handlers=', self._user_connected_handlers)
             print('self._user_disconnected_handlers=', self._user_disconnected_handlers)
 
             if state == 'Connected':
+                client.Parent = parent
+                self._maintain_serverEx_TCP(parent)  # recheck all handlers
+                self._check_rx_handler_serverEx(client)
+
                 if parent in self._user_connected_handlers:
                     if callable(self._user_connected_handlers[parent]):
                         print('778 calling _user_connected_handlers')
                         self._user_connected_handlers[parent](client, state)
+
+                self._server_client_rx_timestamps[parent][client] = time.monotonic()
+                self._update_serverEx_timer(parent)
 
             elif state == 'Disconnected':
                 if parent in self._user_disconnected_handlers:
@@ -879,7 +897,7 @@ class ConnectionHandler:
         :param client:
         :return:
         '''
-        print('_check_rx_handler_serverEx(client=', client)
+        print('898 _check_rx_handler_serverEx(client=', client)
         parent = client.Parent
 
         if parent not in self._rx_handlers:
@@ -887,12 +905,14 @@ class ConnectionHandler:
 
         old_rx = parent.ReceiveData
         if self._rx_handlers[parent] != old_rx or (old_rx == None):
+            print('908 re-make the rx handler')
             # we need to override the rx handler with a new handler that will also add the timestamp
             def new_rx(client, data):
                 time_now = time.monotonic()
-                print('new_rx time_now={}, client={}, data={}'.format(time_now, client, data))
+                print('904 new_rx time_now={}, client={}, data={}'.format(time_now, client, data))
                 self._server_client_rx_timestamps[parent][client] = time_now
                 self._update_serverEx_timer(parent)
+
                 if callable(old_rx):
                     old_rx(client, data)
 
@@ -911,7 +931,7 @@ class ConnectionHandler:
         :param parent:
         :return:
         '''
-        print('_update_serverEx_timer parent=', parent)
+        print('930 _update_serverEx_timer parent=', parent)
         print(' len(parent.Clients)=', len(parent.Clients))
 
         if USE_PRECISE_TIMING is False:
@@ -924,14 +944,14 @@ class ConnectionHandler:
                     timer.Stop()
         else:
             if len(parent.Clients) > 0:
-                print('self._server_client_rx_timestamps[parent]=', self._server_client_rx_timestamps[parent])
+                print('943 self._server_client_rx_timestamps[parent]=', self._server_client_rx_timestamps[parent])
                 oldest_timestamp = None
                 for client, client_timestamp in self._server_client_rx_timestamps[parent].copy().items():
 
                     if (oldest_timestamp is None) or client_timestamp < oldest_timestamp:
                         oldest_timestamp = client_timestamp
 
-                    print('client={}, client_timestamp={}, oldest_timestamp={}, nowtime={}'.format(
+                    print('950 client={}, client_timestamp={}, oldest_timestamp={}, nowtime={}'.format(
                         client,
                         client_timestamp,
                         oldest_timestamp,
@@ -958,6 +978,8 @@ class ConnectionHandler:
             else:  # there are no clients connected
                 print('870 Timer.Stop()')
                 self._timers[parent].Stop()
+
+        print('977')
 
     def _disconnect_undead_clients(self, parent):
         print('_disconnect_undead_clients')

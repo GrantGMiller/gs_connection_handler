@@ -30,7 +30,7 @@ elif gsModule == smdModule:
 
 @event(dvModuleEthernet, ['Connected', 'Disconnected'])
 def ModuleEthernetStatus(interface, state):
-    print('29 @event', interface, state)
+    print('33', time.time(), '29 @event', interface, state)
     if state == 'Connected':
         # btnModuleEthernetStatus.SetState(1)
         pass
@@ -55,6 +55,7 @@ HandleConnection(
 dvModuleEthernet.SubscribeStatus('ConnectionStatus', None, NewEthernetStatus)
 dvModuleEthernet.SubscribeStatus(cmd, qual, NewEthernetStatus)
 
+
 # spam the interface with .Send and .SendAndWait to see if we can trick it into disconnecting
 @Wait(10)
 def Loop():
@@ -64,6 +65,7 @@ def Loop():
             if i % 2 == 0:
                 dvModuleEthernet.Send('{}\r'.format(i))
             else:
-                dvModuleEthernet.SendAndWait('{}\r'.format(i), 0.01)
+                res = dvModuleEthernet.SendAndWait('{}\r'.format(i), 0.01)
+                print('69', time.time(), 'res=', res)
 
         time.sleep(60)
