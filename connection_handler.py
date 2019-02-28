@@ -9,6 +9,9 @@ __version__ = '0.0.7'
 '''
 VERSION HISTORY ***************
 
+v0.1.0 - 2019-02-28
+Added kwarg "timedDisconnect" to allow for a disconnect after a device stops responding for X seconds
+
 v0.0.7 - 2018-08-29
 Changed try/except for SendAndWait to catch all exception as it can throw many types of exceptions.
 
@@ -34,7 +37,10 @@ v0.0.0 - started with UCH v1.0.7
 Strip down to only include TCP connections (Server/Client/SSH/GSM)
 '''
 
-USE_PRECISE_TIMING = False # disconnect ServerEx clients at exactly the serverTimeout time, set false to disconnect after more than serverTimeout, added because Wait.Restart was getting "cant start new thread" error
+USE_PRECISE_TIMING = False
+# disconnect ServerEx clients at exactly the serverTimeout time,
+# set false to disconnect after more than serverTimeout,
+# added because Wait.Restart was getting "cant start new thread" error on IPCP FW 2.08
 
 debug = False
 if not debug:
@@ -107,6 +113,12 @@ class ConnectionHandler:
         }
         self._connected_callback = None  # callable
         self._disconnected_callback = None
+        self._timedDisconnect = {
+            # inteface: None or float
+        }
+        self._timedDisconnectWait = {
+            # interface: Wait(),
+        }
 
         self._timers = {  # Used for polling and for checking server timeouts
             # interface: Timer_obj,
@@ -200,6 +212,8 @@ class ConnectionHandler:
                  connectionRetryFreq=5,  # how many seconds after a Disconnect event to try to do Connect
                  logPhysicalConnection=True,  # Log physical connection changes to the connection.log file
                  logLogicalConnection=True,  # Log logical connection changes to the connection.log file
+                 timedDisconnect=None,
+                 # None or float, if None the Disconnected Event will trigger after disconnectLimit number of .Send or .SendAndWait without any ReceiveData event. if float, will trigger disconnected event after timedDisconnect number of seconds after no ReceiveData
                  ):
         '''
         This method will maintain the connection to the interface.
@@ -226,6 +240,11 @@ class ConnectionHandler:
                 logPhysicalConnection,
                 logLogicalConnection,
             ))
+        self._timedDisconnect[interface] = timedDisconnect
+        self._timedDisconnectWait[interface] = Wait(
+            timedDisconnect,
+            lambda i=interface: self._CheckTimedDisconnect(
+                i)) if timedDisconnect else None
         self._logPhysicalConnection[interface] = logPhysicalConnection
         self._logLogicalConnection[interface] = logLogicalConnection
         self._connection_timeouts[interface] = serverTimeout
@@ -524,14 +543,16 @@ class ConnectionHandler:
                 currentState = self.get_connection_status(interface)
                 print('new_send currentState=', currentState)
                 if currentState is 'Connected':
-                    self._send_counters[interface] += 1
+                    if self._timedDisconnect[interface] is None:
+                        self._send_counters[interface] += 1
                 else:
                     # We dont need to increment the send counter if we know we are disconnected
                     pass
                 print('new_send send_counter=', self._send_counters.get(interface, None))
 
                 # Check if we have exceeded the disconnect limit
-                if self._send_counters.get(interface, 0) > self._disconnectLimits.get(interface, 0):
+                if self._timedDisconnect[interface] is None and \
+                        self._send_counters.get(interface, 0) > self._disconnectLimits.get(interface, 0):
                     # We have not received any responses after X sends, go disconnected
                     print('logical disconnect limit =', self._disconnectLimits[interface])
                     self._update_connection_status_serial_or_ethernetclient(interface, 'Disconnected', 'Logical4')
@@ -542,7 +563,8 @@ class ConnectionHandler:
                     Wait(0, lambda a=args, k=kwargs: current_send_method(*a, **k))
 
             timer = self._timers.get(interface, None)
-            if timer: timer.Start()
+            if timer:
+                timer.Start()
 
             interface.Send = new_send
             self._send_methods[interface] = new_send
@@ -561,7 +583,8 @@ class ConnectionHandler:
                 print('new_send_and_wait send_counter=', self._send_counters[interface])
 
                 # Check if we have exceeded the disconnect limit
-                if self._send_counters[interface] > self._disconnectLimits[interface]:
+                if self._timedDisconnect[interface] is None and \
+                        self._send_counters[interface] > self._disconnectLimits[interface]:
                     self._update_connection_status_serial_or_ethernetclient(interface, 'Disconnected', 'Logical2')
 
                 try:
@@ -579,8 +602,13 @@ class ConnectionHandler:
                     res = None
 
                 if res not in [None, b'']:
-                    self._send_counters[interface] = 0
-                    print('res =', res, ', new_send_and_wait send_counter=', self._send_counters[interface])
+                    if self._timedDisconnect[interface] is None:
+                        self._send_counters[interface] = 0
+                    else:
+                        self._send_counters[interface] = time.monotonic()
+                        self._timedDisconnectWait[interface].Restart()
+
+                print('600 res =', res, ', new_send_and_wait send_counter=', self._send_counters[interface])
 
                 return res
 
@@ -602,13 +630,19 @@ class ConnectionHandler:
             current_rx = interface.ReceiveData
         except Exception as e:
             print('Exception 602:', e)
-            current_rx = None # Needed for IPCP FW 3.0 compatibility
+            current_rx = None  # Needed for IPCP FW 3.0 compatibility
 
-        if current_rx == None or (current_rx != self._rx_handlers[interface] and current_rx.__module__ is not __name__):
-            # The Rx handler got overwritten somehow, make a new Rx and assign it to the interface and save it in self._rx_handlers
+        if current_rx is None or (current_rx != self._rx_handlers[interface] and current_rx.__module__ is not __name__):
+            # The Rx handler got overwritten somehow,
+            # make a new Rx and assign it to the interface and save it in
+            # self._rx_handlers
             def new_rx(*args, **kwargs):
-                print('new_rx args={}, kwargs={}'.format(args, kwargs))
-                self._send_counters[interface] = 0
+                print('629 new_rx args={}, kwargs={}'.format(args, kwargs))
+                if self._timedDisconnect[interface] is None:
+                    self._send_counters[interface] = 0
+                else:
+                    self._send_counters[interface] = time.monotonic()  # holds the last timestamp of Rx
+                    self._timedDisconnectWait[interface].Restart()
 
                 if isinstance(interface, extronlib.interface.EthernetClientInterface):
                     if not hasattr(interface, 'SubscribeStatus'):  # Rely on GSM's connection status
@@ -622,6 +656,16 @@ class ConnectionHandler:
         else:
             # The current rx handler is doing its job. Moving on!
             pass
+
+    def _CheckTimedDisconnect(self, intf):
+        print('650 _CheckTimedDisconnect(', intf)
+        lastRxTime = self._send_counters[intf]
+        delta = lastRxTime - time.monotonic()
+        print('653 delta=', delta)
+        if delta > self._timedDisconnect[intf]:
+            self._update_connection_status_serial_or_ethernetclient(intf, 'Disconnected', 'Timed Disconnect 650')
+        else:
+            print('655 else')
 
     def _add_logical_connection_handling_serverEx(self, interface):
         pass
@@ -899,7 +943,7 @@ class ConnectionHandler:
                 # Disabling for now.
                 if oldest_timestamp is not None:
                     seconds_until_timer_check = self._connection_timeouts[parent] - (
-                                time.monotonic() - oldest_timestamp)
+                            time.monotonic() - oldest_timestamp)
                     if seconds_until_timer_check > 0:
                         print('seconds_until_timer_check=', seconds_until_timer_check)
                         print('len(parent.Clients)=', len(parent.Clients))
@@ -1003,7 +1047,10 @@ class ConnectionHandler:
             self._connection_status[interface] = 'Unknown'
 
         if state == 'Connected':
-            self._send_counters[interface] = 0
+            if self._timedDisconnect[interface] is None:
+                self._send_counters[interface] = 0
+            else:
+                self._send_counters[interface] = time.monotonic()
 
         print('oldConnectionStatus=', self._connection_status[interface])
         print('newConnectionStatus=', state)
@@ -1052,7 +1099,8 @@ class ConnectionHandler:
 
         # if the interface is disconnected, try to reconnect
         if state == 'Disconnected':
-            self._send_counters[interface] = 0
+            if self._timedDisconnect[interface] is None:
+                self._send_counters[interface] = 0
 
             print('Currently Disconnected. Should try to reconnect')
             if hasattr(interface, 'Connect'):
@@ -1096,6 +1144,14 @@ class ConnectionHandler:
                     print('Stopping do_poll() Timer')
                     self._timers[interface].Stop()
                     # Stop the timer and wait for a 'Connected' Event
+
+        # Start/Stop the timedDisconnect
+        wait = self._timedDisconnectWait[interface]
+        if wait is not None:
+            if state == 'Connected':
+                wait.Restart()
+            elif state == 'Disconnected':
+                wait.Cancel()
 
     def __str__(self):
         s = '''\n\n***** Interfaces being handled *****\n\n'''
