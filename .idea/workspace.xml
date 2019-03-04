@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0eecc1d2-9074-42c8-9eb8-8852b998d3d7" name="Default" comment="added timedDisconnect feature">
-      <change afterPath="$PROJECT_DIR$/test-files/main_tcp_raw_with_timedDisconnect.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gs-modules/extr_sm_SMD202_v1_2_7_0.py" beforeDir="false" afterPath="$PROJECT_DIR$/../gs-modules/extr_sm_SMD202_v1_2_7_0.py" afterDir="false" />
+    <list default="true" id="0eecc1d2-9074-42c8-9eb8-8852b998d3d7" name="Default" comment="tested working on windows machine">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/connection_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/connection_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-files/main_tcp_gsm_with_timedDisconnect.py" beforeDir="false" afterPath="$PROJECT_DIR$/test-files/main_tcp_gsm_with_timedDisconnect.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-files/main_tcp_raw.py" beforeDir="false" afterPath="$PROJECT_DIR$/test-files/main_tcp_raw.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-files/main_tcp_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/test-files/main_tcp_server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-files/main_tcp_serverEx.py" beforeDir="false" afterPath="$PROJECT_DIR$/test-files/main_tcp_serverEx.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,11 +18,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.43343467">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/connection_handler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="336">
-                  <caret line="841" column="47" selection-start-line="841" selection-start-column="21" selection-end-line="841" selection-end-column="47" />
+                <state relative-caret-position="196">
+                  <caret line="643" column="22" selection-start-line="643" selection-start-column="16" selection-end-line="643" selection-end-column="22" />
                   <folding>
                     <element signature="e#0#16#0" expanded="true" />
                   </folding>
@@ -39,7 +33,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test-files/main_tcp_gsm_with_timedDisconnect.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="447">
+                <state relative-caret-position="1240">
                   <caret line="68" column="42" selection-start-line="68" selection-start-column="42" selection-end-line="68" selection-end-column="42" />
                   <folding>
                     <element signature="e#0#57#0" expanded="true" />
@@ -49,22 +43,10 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/../gs-modules/extr_dsp_DMP64_v1_2_0_0.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="700">
-                  <caret line="37" column="23" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="23" />
-                  <folding>
-                    <element signature="e#0#72#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test-files/main_tcp_raw.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="360">
-                  <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+                <state relative-caret-position="380">
+                  <caret line="22" selection-start-line="22" selection-end-line="22" />
                   <folding>
                     <element signature="e#1#28#0" expanded="true" />
                   </folding>
@@ -72,11 +54,20 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test-files/main_tcp_raw_with_timedDisconnect.py">
               <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="400">
+                  <caret line="23" selection-start-line="23" selection-end-line="23" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/test-files/connection_handler.log">
+              <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="160">
-                  <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+                  <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
                 </state>
               </provider>
             </entry>
@@ -84,7 +75,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test-files/main_tcp_serverEx.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="140">
+                <state relative-caret-position="100">
                   <caret line="7" selection-start-line="7" selection-end-line="7" />
                   <folding>
                     <element signature="e#1#58#0" expanded="true" />
@@ -114,7 +105,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test-files/main_tcp_server.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="200">
+                <state relative-caret-position="160">
                   <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
                   <folding>
                     <element signature="e#1#56#0" expanded="true" />
@@ -163,7 +154,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test-files/main_tcp_gsm_with_timedDisconnect.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="567">
+                <state relative-caret-position="1240">
                   <caret line="62" column="24" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
                   <folding>
                     <element signature="e#0#57#0" expanded="true" />
@@ -175,7 +166,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/../gs-modules/extr_sm_SMD202_v1_2_7_0.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="296">
+                <state relative-caret-position="4360">
                   <caret line="223" column="6" selection-start-line="223" selection-start-column="6" selection-end-line="223" selection-end-column="6" />
                   <folding>
                     <element signature="e#0#132#0" expanded="true" />
@@ -197,8 +188,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>send_counter</find>
-      <find>self._timedDisconnectWait[interface].Restart()</find>
       <find>613</find>
       <find>650 _</find>
       <find>Receive</find>
@@ -223,10 +212,12 @@
       <find>904</find>
       <find>_check_rx</find>
       <find>parent =</find>
-      <find>.connected =</find>
       <find>client.Send</find>
       <find>908</find>
       <find>778</find>
+      <find>.connected =</find>
+      <find>def _Check</find>
+      <find>new_rx</find>
     </findStrings>
     <replaceStrings>
       <replace>tcp_connection_handler</replace>
@@ -253,9 +244,9 @@
         <option value="$PROJECT_DIR$/test-files/main_tcp_gsm_with_timedDisconnect.py" />
         <option value="$PROJECT_DIR$/test-files/main_tcp_server.py" />
         <option value="$PROJECT_DIR$/test-files/main_tcp_serverEx.py" />
-        <option value="$PROJECT_DIR$/connection_handler.py" />
-        <option value="$PROJECT_DIR$/test-files/main_tcp_raw.py" />
         <option value="$PROJECT_DIR$/test-files/main_tcp_raw_with_timedDisconnect.py" />
+        <option value="$PROJECT_DIR$/test-files/main_tcp_raw.py" />
+        <option value="$PROJECT_DIR$/connection_handler.py" />
       </list>
     </option>
   </component>
@@ -271,6 +262,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -287,7 +279,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -488,19 +479,25 @@
       <option name="project" value="LOCAL" />
       <updated>1551381652232</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="tested working on windows machine">
+      <created>1551388775224</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1551388775224</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Structure" order="0" sideWeight="0.5949178" side_tool="true" visible="true" weight="0.1332982" />
+      <window_info id="Structure" order="0" sideWeight="0.5954357" side_tool="true" visible="true" weight="0.13277134" />
       <window_info id="Favorites" order="1" sideWeight="0.50537634" side_tool="true" weight="0.1406744" />
-      <window_info content_ui="combo" id="Project" order="2" sideWeight="0.40508223" visible="true" weight="0.1332982" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.40456432" visible="true" weight="0.13277134" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.3298647" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3060166" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3060166" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -521,7 +518,8 @@
     <MESSAGE value="When GSM is gracefully disconnected from server-side, module.OnDisconnected() was not called. This has been fixed." />
     <MESSAGE value="added documentation" />
     <MESSAGE value="added timedDisconnect feature" />
-    <option name="LAST_COMMIT_MESSAGE" value="added timedDisconnect feature" />
+    <MESSAGE value="tested working on windows machine" />
+    <option name="LAST_COMMIT_MESSAGE" value="tested working on windows machine" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/../extronlib-clone/extronlib/system.py">
@@ -568,6 +566,55 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/documentation/index.rst">
+      <provider selected="true" editor-type-id="restructured-text-editor" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="3400">
+          <caret line="170" column="51" selection-start-line="170" selection-start-column="51" selection-end-line="170" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-files/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_raw.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="e#1#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_raw_with_timedDisconnect.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-files/connection_handler.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_serverEx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#1#58#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../extronlib-clone/test_files/server_flood.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
@@ -582,6 +629,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+          <folding>
+            <element signature="e#1#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../gs-modules/extr_dsp_DMP_128_Plus_Series_v1_4_3_0.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="53700">
@@ -592,25 +649,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/documentation/index.rst">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="3400">
-          <caret line="170" column="51" selection-start-line="170" selection-start-column="51" selection-end-line="170" selection-end-column="51" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="restructured-text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/test.py">
+    <entry file="file://$PROJECT_DIR$/connection_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/connection_handler.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-47823">
-          <caret line="21" column="3" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
+        <state relative-caret-position="280">
+          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -623,8 +668,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test-files/main_tcp_gsm_with_timedDisconnect.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="68" column="42" selection-start-line="68" selection-start-column="42" selection-end-line="68" selection-end-column="42" />
+        <state relative-caret-position="1240">
+          <caret line="62" column="24" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
           <folding>
             <element signature="e#0#57#0" expanded="true" />
           </folding>
@@ -633,58 +678,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../gs-modules/extr_sm_SMD202_v1_2_7_0.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
+        <state relative-caret-position="4360">
           <caret line="223" column="6" selection-start-line="223" selection-start-column="6" selection-end-line="223" selection-end-column="6" />
           <folding>
             <element signature="e#0#132#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-          <folding>
-            <element signature="e#1#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/connection_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="841" column="47" selection-start-line="841" selection-start-column="21" selection-end-line="841" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_serverEx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="e#1#58#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_raw.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="e#1#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test-files/main_tcp_raw_with_timedDisconnect.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
         </state>
       </provider>
     </entry>

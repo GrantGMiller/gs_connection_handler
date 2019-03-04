@@ -5,7 +5,7 @@ import time
 
 from collections import defaultdict
 
-__version__ = '0.0.7'
+__version__ = '0.1.0'
 '''
 VERSION HISTORY ***************
 
@@ -648,7 +648,7 @@ class ConnectionHandler:
                 else:
                     self._send_counters[interface] = time.monotonic()  # holds the last timestamp of Rx
                     self._timedDisconnectWait[interface].Restart()
-                    print('613-2 restart', time.time())
+                    print('613-2 restart', time.monotonic())
                 print('647 self._send_counters[interface]=', self._send_counters[interface])
 
                 if isinstance(interface, extronlib.interface.EthernetClientInterface):
