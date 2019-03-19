@@ -36,8 +36,10 @@ Strip down to only include TCP connections (Server/Client/SSH/GSM)
 
 USE_PRECISE_TIMING = False  # disconnect ServerEx clients at exactly the serverTimeout time, set false to disconnect after more than serverTimeout, added because Wait.Restart was getting "cant start new thread" error
 
-debug = False
-if not debug:
+DEBUG = False
+oldPrint = print
+
+if not DEBUG:
     print = lambda *a, **k: None
     pass
 else:
@@ -101,6 +103,7 @@ class ConnectionHandler:
         '''
         :param filename: str() name of file to write connection status to
         '''
+        self._debugInterfaces = set()
         self._interfaces = set()
         self._connection_status = {
             # interface: 'Connected',
@@ -200,6 +203,7 @@ class ConnectionHandler:
                  connectionRetryFreq=5,  # how many seconds after a Disconnect event to try to do Connect
                  logPhysicalConnection=True,  # Log physical connection changes to the connection.log file
                  logLogicalConnection=True,  # Log logical connection changes to the connection.log file
+                 debug=False,
                  ):
         '''
         This method will maintain the connection to the interface.
@@ -233,6 +237,9 @@ class ConnectionHandler:
         self._keepAliveQueryQualifiers[interface] = keepAliveQueryQualifier
         self._pollFreqs[interface] = pollFreq
         self._interfaces.add(interface)
+
+        if debug is True:
+            self._debugInterfaces.add(interface)
 
         if isinstance(interface, extronlib.interface.EthernetClientInterface):
             self._maintain_serial_or_ethernetclient(interface)
@@ -516,6 +523,14 @@ class ConnectionHandler:
             # Create a new .Send method that will increment the counter each time
             def new_send(*args, **kwargs):
                 print('new_send args={}, kwargs={}'.format(args, kwargs))
+
+                if interface in self._debugInterfaces:
+                    oldPrint(
+                        'new_send args={}, kwargs={}'.format(args, kwargs),
+                        ', new_send send_counter=',
+                        self._send_counters[interface],
+                    )
+
                 self._check_rx_handler_serial_or_ethernetclient(interface)
                 self._check_connection_handlers(interface)
 
@@ -552,6 +567,14 @@ class ConnectionHandler:
             # Create new .SendAndWait that will increment the counter each time
             def new_send_and_wait(*args, **kwargs):
                 print('new_send_and_wait args={}, kwargs={}'.format(args, kwargs))
+
+                if interface in self._debugInterfaces:
+                    oldPrint(
+                        'new_send_and_wait args={}, kwargs={}'.format(args, kwargs),
+                        ', new_send_and_wait send_counter=',
+                        self._send_counters[interface]
+                    )
+
                 self._check_rx_handler_serial_or_ethernetclient(interface)
                 self._check_connection_handlers(interface)
 
@@ -569,7 +592,7 @@ class ConnectionHandler:
                     ProgramLog('new_send_and_wait(*args={}, **kwargs={})'.format(args, kwargs), 'warning')
                     ProgramLog(str(e), 'warning')
 
-                    if debug is True:
+                    if DEBUG is True:
                         raise e
 
                     if hasattr(interface, 'Disconnect'):
@@ -580,6 +603,8 @@ class ConnectionHandler:
                     self._send_counters[interface] = 0
                     print('res =', res, ', new_send_and_wait send_counter=', self._send_counters[interface])
 
+                    if interface in self._debugInterfaces:
+                        oldPrint('res =', res, ', new_send_and_wait send_counter=', self._send_counters[interface])
                 return res
 
             interface.SendAndWait = new_send_and_wait
@@ -606,6 +631,10 @@ class ConnectionHandler:
             # The Rx handler got overwritten somehow, make a new Rx and assign it to the interface and save it in self._rx_handlers
             def new_rx(*args, **kwargs):
                 print('new_rx args={}, kwargs={}'.format(args, kwargs))
+
+                if interface in self._debugInterfaces:
+                    oldPrint('new_rx args={}, kwargs={}'.format(args, kwargs))
+
                 self._send_counters[interface] = 0
 
                 if isinstance(interface, extronlib.interface.EthernetClientInterface):
@@ -922,7 +951,7 @@ class ConnectionHandler:
 
             if time.monotonic() - client_timestamp > self._connection_timeouts[parent]:
                 if client in parent.Clients:
-                    if debug:
+                    if DEBUG:
                         client.Send(time.asctime() + ' ')
 
                     print('Disconnected client=', client)
@@ -996,11 +1025,14 @@ class ConnectionHandler:
             state,
             kind,
         ))
+        if interface in self._debugInterfaces:
+            oldPrint('1005', interface, state, kind)
 
         if interface not in self._connection_status:
             self._connection_status[interface] = 'Unknown'
 
-        if state == 'Connected':
+        if state in {'Connected', 'ConnectedAlready'}:  # 'ConnectedAlready' added in FW 3.x
+            state = 'Connected'
             self._send_counters[interface] = 0
 
         print('oldConnectionStatus=', self._connection_status[interface])
