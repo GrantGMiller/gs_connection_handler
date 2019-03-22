@@ -2,6 +2,7 @@ from extronlib.interface import SerialInterface, EthernetClientInterface
 from re import compile, findall, search
 from extronlib.system import Wait, ProgramLog
 
+
 class DeviceClass:
 
     def __init__(self):
@@ -110,7 +111,6 @@ class DeviceClass:
     def __MatchVerboseMode(self, match, qualifier):
         self.VerboseDisabled = False
         self.OnConnected()
-        
 
     def SetGroupMicLineInputGain(self, value, qualifier):
 
@@ -700,6 +700,7 @@ class DeviceClass:
         self.WriteStatus('VirtualReturnMute', value, qualifier)
 
     def __SetHelper(self, command, commandstring, value, qualifier):
+        print('703 __SetHelper(', command, commandstring, value, qualifier)
         self.Debug = True
         if self.VerboseDisabled:
             @Wait(1)
@@ -710,6 +711,7 @@ class DeviceClass:
             self.Send(commandstring)
 
     def __UpdateHelper(self, command, commandstring, value, qualifier):
+        print('713 __UpdateHelper(', command, commandstring, value, qualifier)
         if self.initializationChk:
             self.OnConnected()
             self.initializationChk = False
@@ -755,25 +757,27 @@ class DeviceClass:
             self.Error(['Unrecognize error code: ' + match.group(0).decode()])
 
     def OnConnected(self):
+        print('760 OnConnected')
         self.connectionFlag = True
         self.WriteStatus('ConnectionStatus', 'Connected')
         self.counter = 0
 
     def OnDisconnected(self):
+        print('766 OnDisconnected')
         self.WriteStatus('ConnectionStatus', 'Disconnected')
         self.connectionFlag = False
         self.VerboseDisabled = True
         if 'Serial' not in self.ConnectionType:
             self.Authenticated = 'Not Needed'
             self.PasswdPromptCount = 0
-        
+
     def MissingCredentialsLog(self, credential_type):
         if isinstance(self, EthernetClientInterface):
             port_info = 'IP Address: {0}:{1}'.format(self.IPAddress, self.IPPort)
         elif isinstance(self, SerialInterface):
             port_info = 'Host Alias: {0}\r\nPort: {1}'.format(self.Host.DeviceAlias, self.Port)
         else:
-            return 
+            return
         ProgramLog("{0} module received a request from the device for a {1}, "
                    "but device{1} was not provided.\n Please provide a device{1} "
                    "and attempt again.\n Ex: dvInterface.device{1} = '{1}'\n Please "
@@ -790,6 +794,7 @@ class DeviceClass:
             getattr(self, method)(value, qualifier)
         else:
             print(command, 'does not support Set. command={}, value={}, qualifier={}'.format(command, value, qualifier))
+
     # Send Update Commands
 
     def Update(self, command, qualifier=None):
@@ -797,7 +802,8 @@ class DeviceClass:
         if hasattr(self, method) and callable(getattr(self, method)):
             getattr(self, method)(None, qualifier)
         else:
-            print(command, 'does not support Update. command={}, value={}, qualifier={}'.format(command, value, qualifier))
+            print(command,
+                  'does not support Update. command={}, value={}, qualifier={}'.format(command, value, qualifier))
 
     # This method is to tie an specific command with a parameter to a call back method
     # when its value is updated. It sets how often the command will be query, if the command
@@ -911,7 +917,8 @@ class DeviceClass:
 
 class SerialClass(SerialInterface, DeviceClass):
 
-    def __init__(self, Host, Port, Baud=38400, Data=8, Parity='None', Stop=1, FlowControl='Off', CharDelay=0, Mode='RS232', Model=None):
+    def __init__(self, Host, Port, Baud=38400, Data=8, Parity='None', Stop=1, FlowControl='Off', CharDelay=0,
+                 Mode='RS232', Model=None):
         SerialInterface.__init__(self, Host, Port, Baud, Data, Parity, Stop, FlowControl, CharDelay, Mode)
         self.ConnectionType = 'Serial'
         DeviceClass.__init__(self)
