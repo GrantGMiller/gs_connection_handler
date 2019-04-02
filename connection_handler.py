@@ -551,8 +551,9 @@ class ConnectionHandler:
                 else:
                     # Only send when connected
                     print(
-                        'calling user_send_method {}(*args={}, **kwargs={})='.format(current_send_method, args, kwargs))
-                    Wait(0, lambda a=args, k=kwargs: current_send_method(*a, **k))
+                        'calling user_send_method {}(*args={}, **kwargs={})=', current_send_method, args, kwargs)
+                    # Wait(0, lambda a=args, k=kwargs: current_send_method(*a, **k)) #TODO - make sure this doesnt cause thread errors
+                    current_send_method(*args, **kwargs)  # safer than Wait(0) ?
 
             timer = self._timers.get(interface, None)
             if timer: timer.Start()
@@ -1195,8 +1196,10 @@ class Timer:
 
         # self._eWait.Restart()
         self._eWait.Cancel()
-        self._eWait = Wait(self._t,
-                           self._Expired)  # getting a "set to this timer already' error using .Restart() so trying this instead
+        self._eWait = Wait(
+            self._t,
+            self._Expired
+        )  # getting a "set to this timer already' error using .Restart() so trying this instead
 
     def ChangeTime(self, newTime):
         print('Timer.ChangeTime(newTime={}) _func={}, self={}'.format(newTime, self._func, self))
