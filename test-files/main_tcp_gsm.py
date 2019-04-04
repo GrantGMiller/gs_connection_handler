@@ -1,5 +1,4 @@
-import extr_dsp_DMP_128_Plus_Series_v1_4_3_0 as gsModule
-# import extr_sm_SMD202_v1_2_7_0 as gsModule
+import extr_dsp_DMP64_v1_2_0_0 as gsModule
 from connection_handler import HandleConnection
 from extronlib import event
 import extronlib
@@ -10,10 +9,10 @@ try:
 except:
     pass
 
-dvModuleEthernet = gsModule.EthernetClass('10.8.27.130', 23, Protocol='TCP', Model='SMD 202')
+dvModuleEthernet = gsModule.EthernetClass('10.8.27.62', 23, Protocol='TCP')
 dvModuleEthernet.devicePassword = 'extron'
-cmd = 'VirtualReturnMute'
-qual = {'Channel': 'A'}
+cmd = 'OutputAttenuation'
+qual = {'Output': '1'}
 
 
 @event(dvModuleEthernet, ['Connected', 'Disconnected'])

@@ -1,5 +1,8 @@
-import extronlib
-from extronlib.system import Wait, File, ProgramLog
+try:
+    from extronlib_pro import Wait, File, ProgramLog
+except:
+    import extronlib
+    from extronlib.system import Wait, File, ProgramLog
 
 import time
 
