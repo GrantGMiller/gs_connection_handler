@@ -113,6 +113,9 @@ class ConnectionHandler:
         }
         self._connected_callback = None  # callable
         self._disconnected_callback = None
+        self._disconnectMessage = {
+            #interface; bool()
+        }
 
         self._timers = {  # Used for polling and for checking server timeouts
             # interface: Timer_obj,
@@ -207,6 +210,7 @@ class ConnectionHandler:
                  logPhysicalConnection=True,  # Log physical connection changes to the connection.log file
                  logLogicalConnection=True,  # Log logical connection changes to the connection.log file
                  debug=False,
+                 disconnectMessage=True,
                  ):
         '''
         This method will maintain the connection to the interface.
@@ -231,6 +235,7 @@ class ConnectionHandler:
                 logPhysicalConnection,
                 logLogicalConnection,
             ))
+        self._disconnectMessage[interface] = disconnectMessage
         self._logPhysicalConnection[interface] = logPhysicalConnection
         self._logLogicalConnection[interface] = logLogicalConnection
         self._connection_timeouts[interface] = serverTimeout
@@ -960,11 +965,12 @@ class ConnectionHandler:
 
                     print('Disconnected client=', client)
 
-                    client.Send('Disconnecting due to inactivity for {}{} seconds.\r\nBye.\r\n'.format(
-                        self._connection_timeouts[parent],
-                        '' if USE_PRECISE_TIMING else '+'
-                    )
-                    )
+                    if self._disconnectMessage[parent]:
+                        client.Send('Disconnecting due to inactivity for {}{} seconds.\r\nBye.\r\n'.format(
+                            self._connection_timeouts[parent],
+                            '' if USE_PRECISE_TIMING else '+'
+                        )
+                        )
 
                     client.Disconnect()
 
