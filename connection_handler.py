@@ -114,7 +114,7 @@ class ConnectionHandler:
         self._connected_callback = None  # callable
         self._disconnected_callback = None
         self._disconnectMessage = {
-            #interface; bool()
+            # interface; bool()
         }
 
         self._timers = {  # Used for polling and for checking server timeouts
