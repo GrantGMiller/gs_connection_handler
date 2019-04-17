@@ -190,12 +190,14 @@ class ConnectionHandler:
 
         self._filename = filename
         if not File.Exists(self._filename):
-            with File(self._filename, mode='wt') as file:
-                file.write('***\n\n\nProcessor Restarted at {}\r\n\r\n'.format(time.asctime()))
+            if True in self._logLogicalConnection.values() or True in self._logPhysicalConnection.values():
+                with File(self._filename, mode='wt') as file:
+                    file.write('***\n\n\nProcessor Restarted at {}\r\n\r\n'.format(time.asctime()))
         else:
             # The file already exists, but lets add a message to know the processor restarted
-            with File(self._filename, mode='at') as file:
-                file.write('***\n\n\nProcessor Restarted at {}\r\n\r\n'.format(time.asctime()))
+            if True in self._logLogicalConnection.values() or True in self._logPhysicalConnection.values():
+                with File(self._filename, mode='at') as file:
+                    file.write('***\n\n\nProcessor Restarted at {}\r\n\r\n'.format(time.asctime()))
 
     def maintain(self,
                  interface,
@@ -997,6 +999,7 @@ class ConnectionHandler:
     def _do_log_connection_to_file(self, interface, state, kind):
 
         # Write new status to a file
+
         with File(self._filename, mode='at') as file:
             write_str = '{}\n    {}:{}\n'.format(time.asctime(), 'type', type(interface))
             write_str += '    {}:{}\n'.format('id', id(interface))
