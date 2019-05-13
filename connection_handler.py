@@ -11,6 +11,8 @@ from collections import defaultdict
 __version__ = '0.0.7'
 '''
 VERSION HISTORY ***************
+v0.0.8 - 2019-05-13
+Updated to account for a "Connection Refused" when handing a TCP client.
 
 v0.0.7 - 2018-08-29
 Changed try/except for SendAndWait to catch all exception as it can throw many types of exceptions.
@@ -46,8 +48,6 @@ if not DEBUG:
     print = lambda *a, **k: None
     pass
 else:
-    oldPrint = print
-
 
     def NewPrint(*a, **k):
         oldPrint(time.time(), *a, **k)
@@ -403,8 +403,10 @@ class ConnectionHandler:
         if hasattr(interface, 'SubscribeStatus'):
 
             if isinstance(interface, extronlib.interface.SerialInterface):
-                self._update_connection_status_serial_or_ethernetclient(interface, 'Connected',
-                                                                        'ControlScript1')  # SerialInterface ports are always 'Connected' in ControlScript
+                self._update_connection_status_serial_or_ethernetclient(
+                    interface,
+                    'Connected',
+                    'ControlScript1')  # SerialInterface ports are always 'Connected' in ControlScript
             self._check_send_methods(interface)
         else:
             # This interface is not an Extron module. We must create our own logical connection handling
@@ -434,7 +436,11 @@ class ConnectionHandler:
 
         if isinstance(interface, extronlib.interface.SerialInterface):
             # SerialInterfaces are always connected via ControlScript.
-            self._update_connection_status_serial_or_ethernetclient(interface, 'Connected', 'ControlScript2')
+            self._update_connection_status_serial_or_ethernetclient(
+                interface,
+                'Connected',
+                'ControlScript2'
+            )
 
     def _check_connection_handlers(self, interface):
         print('UCH._check_connection_handlers')
@@ -557,7 +563,11 @@ class ConnectionHandler:
                 if self._send_counters.get(interface, 0) > self._disconnectLimits.get(interface, 0):
                     # We have not received any responses after X sends, go disconnected
                     print('logical disconnect limit =', self._disconnectLimits[interface])
-                    self._update_connection_status_serial_or_ethernetclient(interface, 'Disconnected', 'Logical4')
+                    self._update_connection_status_serial_or_ethernetclient(
+                        interface,
+                        'Disconnected',
+                        'Logical4'
+                    )
                 else:
                     # Only send when connected
                     print(
@@ -594,7 +604,11 @@ class ConnectionHandler:
 
                 # Check if we have exceeded the disconnect limit
                 if self._send_counters[interface] > self._disconnectLimits[interface]:
-                    self._update_connection_status_serial_or_ethernetclient(interface, 'Disconnected', 'Logical2')
+                    self._update_connection_status_serial_or_ethernetclient(
+                        interface,
+                        'Disconnected',
+                        'Logical2'
+                    )
 
                 try:
                     res = current_send_and_wait_method(*args, **kwargs)
@@ -668,7 +682,11 @@ class ConnectionHandler:
         # generate a new function that includes the interface and the 'kind' of connection
         def module_connection_callback(command, value, qualifier):
             print('module_connection_callback(command={}, value={}, qualifier={})'.format(command, value, qualifier))
-            self._update_connection_status_serial_or_ethernetclient(interface, value, 'Module')
+            self._update_connection_status_serial_or_ethernetclient(
+                interface,
+                value,
+                'Module'
+            )
 
         return module_connection_callback
 
@@ -758,6 +776,8 @@ class ConnectionHandler:
         # Create the new handler
         if isinstance(interface, extronlib.interface.EthernetClientInterface):
             def controlscript_connection_callback(intf, state):
+                if intf in self._debugInterfaces:
+                    oldPrint('778 controlscript_connection_callback(', intf, state)
                 print(
                     'extronlib.interface controlscript_connection_callback(intf={}, state={}) self._connectWaits={}'.format(
                         intf, state, self._connectWaits))
@@ -777,8 +797,11 @@ class ConnectionHandler:
                 # except:
                 #     pass
 
-                self._update_connection_status_serial_or_ethernetclient(intf, state,
-                                                                        'ControlScript4')  # Also calls user connection callback
+                self._update_connection_status_serial_or_ethernetclient(
+                    intf,
+                    state,
+                    'ControlScript4'
+                )  # Also calls user connection callback
         else:
             controlscript_connection_callback = None
 
@@ -1033,7 +1056,7 @@ class ConnectionHandler:
         :param kind: str() 'ControlScript' or 'Module' or any other value that may be applicable
         :return:
         '''
-        print('_update_connection_status_serial_or_ethernetclient(interface={}, state={}, kind={})'.format(
+        print('1055 _update_connection_status_serial_or_ethernetclient(interface={}, state={}, kind={})'.format(
             interface,
             state,
             kind,
@@ -1106,13 +1129,22 @@ class ConnectionHandler:
                     def ReconnectWaitFunc(interface=interface):
                         print('1035 ReconnectWaitFunc interface=', interface)
                         self._destroyConnectionWait(interface)
-                        print('1032 _connectWaits {} result={}'.format(interface, interface.Connect()))
+                        res = interface.Connect()
+                        if interface in self._debugInterfaces:
+                            oldPrint('1107 ReconnectWaitFunc() interface=', interface, ', Connect()=', res)
+                        print('1032 _connectWaits {} result={}'.format(interface, res))
+
+                        if 'Connection refused' in res:
+                            # maybe attempting to connect to a device that is not ready to listen yet
+                            Wait(self._connectionRetryFreqs[interface], ReconnectWaitFunc)
 
                     wt = Wait(self._connectionRetryFreqs[interface], ReconnectWaitFunc)
 
                     print('1046 reconnect wt=', wt, ', interface=', interface)
                     self._connectWaits[interface] = wt
                 else:
+                    if interface in self._debugInterfaces:
+                        oldPrint('1118 interface.Connect in progress. Waiting for timeout or successful connection')
                     print('interface.Connect in progress. Waiting for timeout or successful connection')
 
             # If a TCP interface is logically disconnect, also do physical disconnect.
@@ -1125,7 +1157,7 @@ class ConnectionHandler:
         if interface in self._timers:
             if state == 'Connected':
                 print(
-                    '_update_connection_status_serial_or_ethernetclient calling Timer.Start() self._timers[interface]=',
+                    '1132 _update_connection_status_serial_or_ethernetclient calling Timer.Start() self._timers[interface]=',
                     self._timers[interface])
                 self._timers[interface].Start()
 
@@ -1137,6 +1169,8 @@ class ConnectionHandler:
 
                 elif isinstance(interface, extronlib.interface.EthernetClientInterface):
                     print('Stopping do_poll() Timer')
+                    if interface in self._debugInterfaces:
+                        oldPrint('Stopping do_poll Timer')
                     self._timers[interface].Stop()
                     # Stop the timer and wait for a 'Connected' Event
 
