@@ -8,7 +8,7 @@ import time
 
 from collections import defaultdict
 
-__version__ = '0.0.7'
+__version__ = '0.0.8'
 '''
 VERSION HISTORY ***************
 v0.0.8 - 2019-05-13
