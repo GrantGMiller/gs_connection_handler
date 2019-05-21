@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0eecc1d2-9074-42c8-9eb8-8852b998d3d7" name="Default" comment="reverted back to 0.0.7">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="0eecc1d2-9074-42c8-9eb8-8852b998d3d7" name="Default" comment="reverted back to 0.0.7" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,16 +124,16 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/connection_handler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="900">
-                  <caret line="47" column="29" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
+                <state relative-caret-position="281">
+                  <caret line="870" column="38" selection-start-line="870" selection-start-column="38" selection-end-line="870" selection-end-column="38" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/documentation/make_singlehtml.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="220">
@@ -181,9 +179,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>613</find>
-      <find>650 _</find>
-      <find>Receive</find>
       <find>33</find>
       <find>__ReceiveData</find>
       <find>SMD __Re</find>
@@ -204,13 +199,16 @@
       <find>parent.Connected =</find>
       <find>904</find>
       <find>_check_rx</find>
-      <find>parent =</find>
       <find>client.Send</find>
       <find>908</find>
       <find>778</find>
       <find>.connected =</find>
       <find>def _Check</find>
       <find>new_rx</find>
+      <find>.Parent =</find>
+      <find>parent</find>
+      <find>parent =</find>
+      <find>client.Parent</find>
     </findStrings>
     <replaceStrings>
       <replace>tcp_connection_handler</replace>
@@ -262,11 +260,6 @@
             <path>
               <item name="tcp-connection-handler" type="b2602c69:ProjectViewProjectNode" />
               <item name="tcp-connection-handler" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="tcp-connection-handler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tcp-connection-handler" type="462c0819:PsiDirectoryNode" />
-              <item name="documentation" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="tcp-connection-handler" type="b2602c69:ProjectViewProjectNode" />
@@ -498,9 +491,9 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Structure" order="0" sideWeight="0.5984849" side_tool="true" visible="true" weight="0.13277134" />
+      <window_info id="Structure" order="0" sideWeight="0.5995671" side_tool="true" visible="true" weight="0.13277134" />
       <window_info id="Favorites" order="1" sideWeight="0.50537634" side_tool="true" weight="0.1406744" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.40151516" visible="true" weight="0.13277134" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.4004329" visible="true" weight="0.13277134" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.3298647" />
       <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3060166" />
@@ -575,12 +568,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/documentation/index.rst">
+      <provider selected="true" editor-type-id="restructured-text-editor" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="3400">
           <caret line="170" column="51" selection-start-line="170" selection-start-column="51" selection-end-line="170" selection-end-column="51" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="restructured-text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/test-files/test.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -657,13 +650,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/connection_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="47" column="29" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test-files/main_tcp_gsm_with_timedDisconnect.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1240">
@@ -688,6 +674,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/connection_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="870" column="38" selection-start-line="870" selection-start-column="38" selection-end-line="870" selection-end-column="38" />
         </state>
       </provider>
     </entry>
