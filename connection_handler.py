@@ -538,7 +538,7 @@ class ConnectionHandler:
 
             # Create a new .Send method that will increment the counter each time
             def new_send(*args, **kwargs):
-                print('new_send args={}, kwargs={}'.format(args, kwargs))
+                print('new_send args={}, kwargs={}'.format(interface, args, kwargs))
 
                 if interface in self._debugInterfaces:
                     oldPrint(
@@ -652,10 +652,10 @@ class ConnectionHandler:
             print('Exception 602:', e)
             current_rx = None  # Needed for IPCP FW 3.0 compatibility
 
-        if current_rx == None or (current_rx != self._rx_handlers[interface] and current_rx.__module__ is not __name__):
+        if current_rx is None or (current_rx != self._rx_handlers[interface] and current_rx.__module__ is not __name__):
             # The Rx handler got overwritten somehow, make a new Rx and assign it to the interface and save it in self._rx_handlers
             def new_rx(*args, **kwargs):
-                print('new_rx args={}, kwargs={}'.format(args, kwargs))
+                print('new_rx args={}, kwargs={}'.format(interface, args, kwargs))
 
                 if interface in self._debugInterfaces:
                     oldPrint('new_rx args={}, kwargs={}'.format(args, kwargs))
