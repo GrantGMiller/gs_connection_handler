@@ -599,8 +599,9 @@ class ConnectionHandler:
                 self._check_rx_handler_serial_or_ethernetclient(interface)
                 self._check_connection_handlers(interface)
 
-                self._send_counters[interface] += 1
-                print('new_send_and_wait send_counter=', self._send_counters[interface])
+                if interface in self._send_counters:
+                    self._send_counters[interface] += 1
+                    print('new_send_and_wait send_counter=', self._send_counters[interface])
 
                 # Check if we have exceeded the disconnect limit
                 if self._send_counters[interface] > self._disconnectLimits[interface]:
