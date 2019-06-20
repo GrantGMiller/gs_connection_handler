@@ -2,6 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../extronlib-pro" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../gs-modules" vcs="Git" />
   </component>
 </project>

@@ -1,9 +1,9 @@
 try:
     from extronlib_pro import Wait, File, ProgramLog
 except:
-    import extronlib
     from extronlib.system import Wait, File, ProgramLog
 
+import extronlib
 import time
 
 from collections import defaultdict
@@ -12,7 +12,7 @@ __version__ = '0.0.8'
 '''
 VERSION HISTORY ***************
 v0.0.8 - 2019-05-13
-Updated to account for a "Connection Refused" when handing a TCP client.
+Updated to account for a "Connection Refused" when handling a TCP client.
 
 v0.0.7 - 2018-08-29
 Changed try/except for SendAndWait to catch all exception as it can throw many types of exceptions.
@@ -39,7 +39,7 @@ v0.0.0 - started with UCH v1.0.7
 Strip down to only include TCP connections (Server/Client/SSH/GSM)
 '''
 
-USE_PRECISE_TIMING = False  # disconnect ServerEx clients at exactly the serverTimeout time, set false to disconnect after more than serverTimeout, added because Wait.Restart was getting "cant start new thread" error
+USE_PRECISE_TIMING = False  # disconnect ServerEx clients at exactly the serverTimeout time, set false to disconnect after more than serverTimeout, added because Wait.Restart was getting "cant start new thread" error, this seems to be fixed in IPCP FW 3.x
 
 DEBUG = False
 oldPrint = print

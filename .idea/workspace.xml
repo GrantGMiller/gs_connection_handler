@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0eecc1d2-9074-42c8-9eb8-8852b998d3d7" name="Default" comment="reverted back to 0.0.7" />
+    <list default="true" id="0eecc1d2-9074-42c8-9eb8-8852b998d3d7" name="Default" comment="reverted back to 0.0.7">
+      <change beforePath="$PROJECT_DIR$/.idea/connection-handler.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/connection-handler.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/connection_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/connection_handler.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +24,11 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/connection_handler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="125">
-                  <caret line="1168" selection-start-line="1168" selection-end-line="1168" />
+                <state relative-caret-position="820">
+                  <caret line="41" column="255" selection-start-line="41" selection-start-column="255" selection-end-line="41" selection-end-column="255" />
+                  <folding>
+                    <element signature="e#123#139#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -127,8 +136,11 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/connection_handler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="17360">
+                <state relative-caret-position="17400">
                   <caret line="870" column="38" selection-start-line="870" selection-start-column="38" selection-end-line="870" selection-end-column="38" />
+                  <folding>
+                    <element signature="e#123#139#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -142,7 +154,7 @@
             <entry file="file://$PROJECT_DIR$/documentation/make_singlehtml.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="220">
-                  <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+                  <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
                 </state>
               </provider>
             </entry>
@@ -247,10 +259,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
-    <option name="height" value="1096" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -258,7 +270,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -268,22 +279,17 @@
             </path>
             <path>
               <item name="tcp-connection-handler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tcp-connection-handler" type="462c0819:PsiDirectoryNode" />
-              <item name="documentation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="tcp-connection-handler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tcp-connection-handler" type="462c0819:PsiDirectoryNode" />
-              <item name="test-files" type="462c0819:PsiDirectoryNode" />
+              <item name="extronlib-pro" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../test" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -498,12 +504,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Structure" order="0" sideWeight="0.6026971" side_tool="true" visible="true" weight="0.13277134" />
+      <window_info id="Structure" order="0" sideWeight="0.6060606" side_tool="true" visible="true" weight="0.13277134" />
       <window_info id="Favorites" order="1" sideWeight="0.50537634" side_tool="true" weight="0.1406744" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.3973029" visible="true" weight="0.13277134" />
+      <window_info content_ui="combo" id="Project" order="2" sideWeight="0.3939394" visible="true" weight="0.13277134" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.3298647" />
       <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3060166" />
@@ -513,7 +518,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32900432" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="bottom" id="Messages" order="11" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -654,15 +659,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/connection_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17360">
+        <state relative-caret-position="17400">
           <caret line="870" column="38" selection-start-line="870" selection-start-column="38" selection-end-line="870" selection-end-column="38" />
+          <folding>
+            <element signature="e#123#139#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/documentation/make_singlehtml.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
-          <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -687,12 +695,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/documentation/index.rst">
-      <provider selected="true" editor-type-id="restructured-text-editor" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="3400">
           <caret line="170" column="51" selection-start-line="170" selection-start-column="51" selection-end-line="170" selection-end-column="51" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="restructured-text-editor" />
     </entry>
   </component>
 </project>
