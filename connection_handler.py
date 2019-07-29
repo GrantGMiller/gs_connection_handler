@@ -44,17 +44,17 @@ USE_PRECISE_TIMING = False  # disconnect ServerEx clients at exactly the serverT
 DEBUG = False
 oldPrint = print
 
-if not DEBUG:
+if DEBUG is False:
     print = lambda *a, **k: None
     pass
-else:
+# else:
 
-    def NewPrint(*a, **k):
-        oldPrint(time.time(), *a, **k)
-        time.sleep(0.002)
-
-
-    print = NewPrint
+    # def NewPrint(*a, **k):
+    #     oldPrint(time.time(), *a, **k)
+    #     time.sleep(0.002)
+    #
+    #
+    # print = NewPrint
 
 
 def HandleConnection(interface, *args, **kwargs):
