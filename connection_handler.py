@@ -509,7 +509,7 @@ class ConnectionHandler:
                 try:
                     interface.SubscribeStatus('ConnectionStatus', None, self._get_module_connection_callback(interface))
                 except Exception as e:
-                    print(e)
+                    print('connection_handler Exception 512:', e)
 
     def _check_send_methods(self, interface):
         '''
