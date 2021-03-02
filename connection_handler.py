@@ -1278,6 +1278,7 @@ class Timer:
 
     def __del__(self):
         self.Stop()
+        super().__del__()
 
 
 __all__ = ('HandleConnection', 'IsConnected', 'GetInterfaces')
