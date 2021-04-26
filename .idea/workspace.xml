@@ -3,15 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="0eecc1d2-9074-42c8-9eb8-8852b998d3d7" name="Default" comment="reverted back to 0.0.7">
       <change afterPath="$PROJECT_DIR$/../gs-modules/.idea/gs-modules.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../extronlib-clone/extronlib/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../extronlib-clone/extronlib/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/connection_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/connection_handler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FavoritesManager">
-    <favorites_list name="tcp-connection-handler" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -20,44 +18,6 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>33</find>
-      <find>__ReceiveData</find>
-      <find>SMD __Re</find>
-      <find>_Check</find>
-      <find>221</find>
-      <find>timedDisc</find>
-      <find>def _update</find>
-      <find>OnDisconnected</find>
-      <find>SendAndWait</find>
-      <find>server</find>
-      <find>835</find>
-      <find>def main</find>
-      <find>timestamps</find>
-      <find>_server_client_rx_timestamps</find>
-      <find>_timer(</find>
-      <find>_update_serverEx_timer</find>
-      <find>ReceiveData =</find>
-      <find>parent.Connected =</find>
-      <find>904</find>
-      <find>_check_rx</find>
-      <find>client.Send</find>
-      <find>908</find>
-      <find>778</find>
-      <find>.connected =</find>
-      <find>def _Check</find>
-      <find>new_rx</find>
-      <find>.Parent =</find>
-      <find>parent</find>
-      <find>parent =</find>
-      <find>client.Parent</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>tcp_connection_handler</replace>
-      <replace>connection_handler</replace>
-    </replaceStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -65,10 +25,11 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -200,18 +161,6 @@
         <item itemvalue="Python.main_tcp_gsm_with_timedDisconnect" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />

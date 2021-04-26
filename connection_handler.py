@@ -1,16 +1,19 @@
 try:
-    from extronlib_pro import Wait, File, ProgramLog
+    from extronlib_pro import Wait, File, ProgramLog, Timer
 except:
-    from extronlib.system import Wait, File, ProgramLog
+    from extronlib.system import Wait, File, ProgramLog, Timer
 
 import extronlib
 import time
 
 from collections import defaultdict
 
-__version__ = '0.0.8'
+__version__ = '0.0.9'
 '''
-VERSION HISTORY ***************
+VERSION HISTORY ***************  
+v0.0.9 - 2020-04-26
+Added RemoveInterface() method.
+
 v0.0.8 - 2019-05-13
 Updated to account for a "Connection Refused" when handling a TCP client.
 
@@ -47,14 +50,16 @@ oldPrint = print
 if DEBUG is False:
     print = lambda *a, **k: None
     pass
+
+
 # else:
 
-    # def NewPrint(*a, **k):
-    #     oldPrint(time.time(), *a, **k)
-    #     time.sleep(0.002)
-    #
-    #
-    # print = NewPrint
+# def NewPrint(*a, **k):
+#     oldPrint(time.time(), *a, **k)
+#     time.sleep(0.002)
+#
+#
+# print = NewPrint
 
 
 def HandleConnection(interface, *args, **kwargs):
@@ -83,6 +88,13 @@ def GetInterfaces():
         return ConnectionHandler.GetDefaultCH().GetAllInterfaces()
     else:
         return []
+
+
+def RemoveInterface(interface):
+    ch = ConnectionHandler.GetDefaultCH()
+    if ch is None:
+        ch = ConnectionHandler.GetDefaultCH().GetAllInterfaces()
+    ch.remove_interface(interface)
 
 
 class ConnectionHandler:
@@ -274,6 +286,45 @@ class ConnectionHandler:
                 raise Exception(
                     'This ConnectionHandler class does not support EthernetServerInterface with Protocol="UDP".\r\nConsider using EthernetServerInterfaceEx.')
 
+    def remove_interface(self, interface):
+        self._disconnectMessage.pop(interface, None)
+        self._logPhysicalConnection.pop(interface, None)
+        self._logLogicalConnection.pop(interface, None)
+        self._connection_timeouts.pop(interface, None)
+        self._connectionRetryFreqs.pop(interface, None)
+        self._disconnectLimits.pop(interface, None)
+        self._keepAliveQueryCommands.pop(interface, None)
+        self._keepAliveQueryQualifiers.pop(interface, None)
+        self._pollFreqs.pop(interface, None)
+        if interface in self._interfaces:
+            self._interfaces.remove(interface)
+        if interface in self._debugInterfaces:
+            self._debugInterfaces.remove(interface)
+
+        self._connection_status.pop(interface, None)
+        t = self._timers.pop(interface, None)
+        if t:
+            t.Stop()
+        self._send_counters.pop(interface, None)
+        self._disconnectLimits.pop(interface, None)
+        self._rx_handlers.pop(interface, None)
+        self._connected_handlers.pop(interface, None)
+        self._disconnected_handlers.pop(interface, None)
+        self._user_connected_handlers.pop(interface, None)
+        self._user_disconnected_handlers.pop(interface, None)
+        self._send_methods.pop(interface, None)
+        self._send_and_wait_methods.pop(interface, None)
+        self._server_listen_status.pop(interface, None)
+        self._server_client_rx_timestamps.pop(interface, None)
+        self._keepAliveQueryCommands.pop(interface, None)
+        self._keepAliveQueryQualifiers.pop(interface, None)
+        w = self._connectWaits.pop(interface, None)
+        if w:
+            w.Cancel()
+
+        interface.Connected = None
+        interface.Disconnected = None
+
     def _maintain_serverEx_TCP(self, parent):
         print('_maintain_serverEx_TCP parent.Connected=', parent.Connected)
         print('_maintain_serverEx_TCP parent.Disconnected=', parent.Disconnected)
@@ -334,7 +385,7 @@ class ConnectionHandler:
         if parent not in self._server_listen_status:
             self._server_listen_status[parent] = 'Unknown'
 
-        if self._server_listen_status[parent] is not 'Listening':
+        if self._server_listen_status[parent] != 'Listening':
             try:
                 result = parent.StartListen()
             except Exception as e:
@@ -345,7 +396,7 @@ class ConnectionHandler:
 
             self._server_listen_status[parent] = result
 
-        if self._server_listen_status[parent] is not 'Listening':
+        if self._server_listen_status[parent] != 'Listening':
             # We tried to start listen but it failed.
             # Try again in X seconds
             def retry_start_listen():
@@ -353,7 +404,7 @@ class ConnectionHandler:
 
             Wait(self._connectionRetryFreqs[parent], retry_start_listen)
 
-        elif self._server_listen_status[parent] is 'Listening':
+        elif self._server_listen_status[parent] == 'Listening':
             # We have successfully started the server listening
             pass
 
@@ -552,7 +603,7 @@ class ConnectionHandler:
 
                 currentState = self.get_connection_status(interface)
                 print('new_send currentState=', currentState)
-                if currentState is 'Connected':
+                if currentState == 'Connected':
                     self._send_counters[interface] += 1
                 else:
                     # We dont need to increment the send counter if we know we are disconnected
@@ -576,7 +627,8 @@ class ConnectionHandler:
                     current_send_method(*args, **kwargs)  # safer than Wait(0) ?
 
             timer = self._timers.get(interface, None)
-            if timer: timer.Start()
+            if timer:
+                timer.Restart()
 
             interface.Send = new_send
             self._send_methods[interface] = new_send
@@ -934,10 +986,10 @@ class ConnectionHandler:
         if USE_PRECISE_TIMING is False:
             timer = self._timers[parent]
             if len(parent.Clients) > 0:
-                if not timer.Running:
-                    timer.Start()
+                if not timer.State == 'Running':
+                    timer.Restart()
             else:
-                if timer.Running:
+                if timer.State == 'Running':
                     timer.Stop()
         else:
             if len(parent.Clients) > 0:
@@ -964,8 +1016,8 @@ class ConnectionHandler:
                     if seconds_until_timer_check > 0:
                         print('seconds_until_timer_check=', seconds_until_timer_check)
                         print('len(parent.Clients)=', len(parent.Clients))
-                        self._timers[parent].ChangeTime(seconds_until_timer_check)
-                        self._timers[parent].Start()
+                        self._timers[parent].Change(seconds_until_timer_check)
+                        self._timers[parent].Restart()
 
                 # Lets say the parent timeout is 5 minutes.
                 # If the oldest connected client has not communicated for 4min 55sec, then seconds_until_timer_check = 5 seconds
@@ -1134,7 +1186,7 @@ class ConnectionHandler:
                             oldPrint('1107 ReconnectWaitFunc() interface=', interface, ', Connect()=', res)
                         print('1032 _connectWaits {} result={}'.format(interface, res))
 
-                        if 'Connection refused' in res:
+                        if 'Connection refused' in res and interface in self._interfaces:
                             # maybe attempting to connect to a device that is not ready to listen yet
                             Wait(self._connectionRetryFreqs[interface], ReconnectWaitFunc)
 
@@ -1157,9 +1209,9 @@ class ConnectionHandler:
         if interface in self._timers:
             if state == 'Connected':
                 print(
-                    '1132 _update_connection_status_serial_or_ethernetclient calling Timer.Start() self._timers[interface]=',
+                    '1132 _update_connection_status_serial_or_ethernetclient calling Timer.Restart() self._timers[interface]=',
                     self._timers[interface])
-                self._timers[interface].Start()
+                self._timers[interface].Restart()
 
             elif state == 'Disconnected':
                 if isinstance(interface, extronlib.interface.SerialInterface):
@@ -1227,58 +1279,4 @@ class ConnectionHandler:
         self._disconnected_callback = callback
 
 
-class Timer:
-    def __init__(self, t, func):
-        t = 0 if t < 0 else t
-        print('Timer.__init__(t={}, func={}, self={}'.format(t, func, self))
-        self._t = t
-        self._func = func
-        self._eWait = Wait(self._t, self._Expired)
-        self._running = True
-
-    def Start(self):
-        print('Timer.Start() _func={}, eWait.Time={}, self={}'.format(self._func, self._eWait.Time, self))
-        self._running = True
-
-        # self._eWait.Restart()
-        self._eWait.Cancel()
-        self._eWait = Wait(
-            self._t,
-            self._Expired
-        )  # getting a "set to this timer already' error using .Restart() so trying this instead
-
-    def ChangeTime(self, newTime):
-        print('Timer.ChangeTime(newTime={}) _func={}, self={}'.format(newTime, self._func, self))
-        newTime = 0 if newTime < 0 else newTime
-        # self._eWait.Cancel()
-        self._t = newTime
-        # self._eWait = Wait(self._t, self._Expired)
-        self._eWait.Change(newTime)
-        print('Timer._eWait.Time=', self._eWait.Time)
-
-    def Stop(self, *args, **kwargs):
-        print('Timer.Stop() _func={}, eWait.Time={}, self={}'.format(self._func, self._eWait.Time, self))
-        self._running = False
-        self._eWait.Cancel()
-        print('eWait.Cancel complete')
-
-    def _Expired(self):
-        # called when eWait expires
-        print('Timer._Expired() _func={}, eWait.Time={}, self={}'.format(self._func, self._eWait.Time, self))
-        if self._running:
-            self._func()
-
-        if self._running:
-            print('Expired calling Start() _func={}, self={}'.format(self._func, self))
-            self.Start()
-
-    @property
-    def Running(self):
-        return self._running
-
-    def __del__(self):
-        self.Stop()
-        super().__del__()
-
-
-__all__ = ('HandleConnection', 'IsConnected', 'GetInterfaces')
+__all__ = ('HandleConnection', 'IsConnected', 'GetInterfaces', 'RemoveInterface')
