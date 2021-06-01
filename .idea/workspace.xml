@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="0eecc1d2-9074-42c8-9eb8-8852b998d3d7" name="Default" comment="reverted back to 0.0.7">
-      <change afterPath="$PROJECT_DIR$/../gs-modules/.idea/gs-modules.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/connection_handler.py" afterDir="false" />
-    </list>
+    <list default="true" id="0eecc1d2-9074-42c8-9eb8-8852b998d3d7" name="Default" comment="v0.0.9 Added RemoveInterface() method." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -229,8 +243,26 @@
       <option name="project" value="LOCAL" />
       <updated>1553006822229</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="v0.0.9 Added RemoveInterface() method.">
+      <created>1619445801076</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1619445801076</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="confirmed in GS - GSM/Eth raw/ eth Server/Ex" />
@@ -241,6 +273,17 @@
     <MESSAGE value="added timedDisconnect feature" />
     <MESSAGE value="tested working on windows machine" />
     <MESSAGE value="reverted back to 0.0.7" />
-    <option name="LAST_COMMIT_MESSAGE" value="reverted back to 0.0.7" />
+    <MESSAGE value="v0.0.9 Added RemoveInterface() method." />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.0.9 Added RemoveInterface() method." />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2472" y="270" key="Vcs.Push.Dialog.v2" timestamp="1619445802780">
+      <screen x="1920" y="17" width="1920" height="1040" />
+    </state>
+    <state x="2472" y="270" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.17.1920.1040/979.1097.1920.1040@1920.17.1920.1040" timestamp="1619445802780" />
+    <state x="2525" y="398" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1619445809229">
+      <screen x="1920" y="17" width="1920" height="1040" />
+    </state>
+    <state x="2525" y="398" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1920.1040/1920.17.1920.1040/979.1097.1920.1040@1920.17.1920.1040" timestamp="1619445809229" />
   </component>
 </project>
