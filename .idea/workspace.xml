@@ -19,7 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0eecc1d2-9074-42c8-9eb8-8852b998d3d7" name="Default" comment="v0.0.9 Added RemoveInterface() method." />
+    <list default="true" id="0eecc1d2-9074-42c8-9eb8-8852b998d3d7" name="Default" comment="v0.0.9 Added RemoveInterface() method.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -162,9 +164,9 @@
     <list>
       <item itemvalue="Python.main_tcp_gsm_with_timedDisconnect" />
       <item itemvalue="Python.main_tcp_raw" />
-      <item itemvalue="Python.main_tcp_server" />
-      <item itemvalue="Python.main_tcp_serverEx" />
       <item itemvalue="Python.main_tcp_raw_with_timedDisconnect" />
+      <item itemvalue="Python.main_tcp_serverEx" />
+      <item itemvalue="Python.main_tcp_server" />
     </list>
     <recent_temporary>
       <list>
@@ -263,6 +265,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="confirmed in GS - GSM/Eth raw/ eth Server/Ex" />
